@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hong Arang | Luxury Retail Professional</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --blue: #2563eb; --blue-light: #eff6ff; --blue-mid: #93c5fd;
+    --gray-50: #f8fafc; --gray-100: #f1f5f9; --gray-200: #e2e8f0;
+    --gray-400: #94a3b8; --gray-600: #475569; --gray-800: #1e293b;
+    --gold: #d97706; --green: #059669; --purple: #7c3aed;
+  }
+  body { font-family: 'Apple SD Gothic Neo','Pretendard','Noto Sans KR',sans-serif; background: var(--gray-50); color: var(--gray-800); font-size: 14px; line-height: 1.6; }
+
+  .header { background: white; border-bottom: 1px solid var(--gray-200); padding: 40px 0 32px; }
+  .header-inner { max-width: 1000px; margin: 0 auto; padding: 0 32px; display: flex; gap: 32px; align-items: flex-start; }
+  .avatar { width: 96px; height: 96px; border-radius: 50%; background: linear-gradient(135deg, #2563eb, #7c3aed); display: flex; align-items: center; justify-content: center; font-size: 34px; color: white; font-weight: 700; flex-shrink: 0; }
+  .name { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
+  .title-tag { display: inline-block; margin-top: 6px; background: var(--blue-light); color: var(--blue); padding: 3px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+  .contacts { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px; font-size: 13px; color: var(--gray-600); }
+  .badge-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
+  .badge { background: var(--gray-100); border: 1px solid var(--gray-200); border-radius: 6px; padding: 3px 10px; font-size: 12px; color: var(--gray-600); font-weight: 500; }
+  .badge.hl { background: var(--blue-light); border-color: var(--blue-mid); color: var(--blue); }
+
+  .nav { background: white; border-bottom: 1px solid var(--gray-200); position: sticky; top: 0; z-index: 100; }
+  .nav-inner { max-width: 1000px; margin: 0 auto; padding: 0 32px; display: flex; }
+  .nav-btn { padding: 13px 18px; border: none; background: none; font-size: 14px; font-weight: 500; color: var(--gray-400); cursor: pointer; border-bottom: 2px solid transparent; transition: all .15s; white-space: nowrap; }
+  .nav-btn:hover { color: var(--blue); }
+  .nav-btn.active { color: var(--blue); border-bottom-color: var(--blue); }
+
+  .main { max-width: 1000px; margin: 0 auto; padding: 28px 32px; display: grid; grid-template-columns: 1fr 300px; gap: 20px; align-items: start; }
+
+  .card { background: white; border: 1px solid var(--gray-200); border-radius: 12px; padding: 22px; margin-bottom: 18px; }
+  .card-title { font-size: 14px; font-weight: 700; color: var(--blue); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--gray-100); display: flex; align-items: center; gap: 7px; }
+
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 18px; grid-column: 1 / -1; }
+  .kpi-card { background: white; border: 1px solid var(--gray-200); border-radius: 12px; padding: 18px; position: relative; overflow: hidden; }
+  .kpi-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .kpi-card.c-blue::before { background: var(--blue); }
+  .kpi-card.c-gold::before { background: var(--gold); }
+  .kpi-card.c-green::before { background: var(--green); }
+  .kpi-card.c-purple::before { background: var(--purple); }
+  .kpi-label { font-size: 11px; color: var(--gray-400); font-weight: 600; margin-bottom: 5px; }
+  .kpi-value { font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
+  .kpi-value.c-blue { color: var(--blue); } .kpi-value.c-gold { color: var(--gold); } .kpi-value.c-green { color: var(--green); } .kpi-value.c-purple { color: var(--purple); }
+  .kpi-sub { font-size: 11px; color: var(--gray-400); margin-top: 3px; }
+  .kpi-change { display: inline-flex; align-items: center; gap: 2px; font-size: 11px; font-weight: 600; padding: 2px 7px; border-radius: 4px; margin-top: 7px; }
+  .kpi-change.up { background: #dcfce7; color: #166534; }
+
+  .chart-wrap { position: relative; height: 200px; margin-top: 8px; }
+  .chart-wrap.tall { height: 260px; }
+
+  .work-item { padding: 18px 0; border-bottom: 1px solid var(--gray-100); }
+  .work-item:last-child { border-bottom: none; }
+  .work-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+  .work-company { font-weight: 700; font-size: 14px; }
+  .work-period { font-size: 11px; color: white; background: var(--blue); padding: 3px 9px; border-radius: 999px; white-space: nowrap; font-weight: 600; }
+  .work-role { font-size: 12px; color: var(--blue); font-weight: 600; margin-top: 2px; }
+  .work-desc { margin-top: 10px; color: var(--gray-600); font-size: 13px; }
+  .work-desc ul { padding-left: 17px; }
+  .work-desc li { margin-bottom: 5px; }
+  .ach { display: inline-block; background: #fffbeb; border: 1px solid #fde68a; color: var(--gold); font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; margin: 4px 4px 0 0; }
+
+  .skill-item { margin-bottom: 13px; }
+  .skill-hd { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px; }
+  .skill-pct { color: var(--gray-400); font-size: 12px; }
+  .skill-bar { height: 6px; background: var(--gray-100); border-radius: 3px; overflow: hidden; }
+  .skill-fill { height: 100%; border-radius: 3px; background: var(--blue); }
+
+  .summ-item { margin-bottom: 14px; }
+  .summ-key { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--gray-400); letter-spacing: 0.5px; margin-bottom: 3px; }
+  .summ-val { font-size: 13px; font-weight: 600; }
+
+  .tl { position: relative; padding-left: 22px; }
+  .tl::before { content: ''; position: absolute; left: 6px; top: 6px; bottom: 6px; width: 2px; background: var(--gray-200); }
+  .tl-item { position: relative; margin-bottom: 16px; }
+  .tl-item::before { content: ''; position: absolute; left: -19px; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: var(--blue); border: 2px solid white; box-shadow: 0 0 0 2px var(--blue); }
+  .tl-date { font-size: 11px; color: var(--gray-400); font-weight: 600; }
+  .tl-content { font-size: 13px; font-weight: 600; margin-top: 1px; }
+  .tl-sub { font-size: 12px; color: var(--gray-600); margin-top: 1px; }
+
+  .achieve-row { display: flex; flex-direction: column; gap: 10px; }
+  .achieve-item { display: flex; align-items: center; gap: 14px; padding: 12px 14px; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 10px; }
+  .achieve-icon { font-size: 22px; flex-shrink: 0; }
+  .achieve-label { font-size: 12px; color: var(--gray-400); font-weight: 500; }
+  .achieve-val { font-size: 17px; font-weight: 700; margin-top: 1px; }
+  .achieve-val.blue { color: var(--blue); } .achieve-val.gold { color: var(--gold); } .achieve-val.green { color: var(--green); } .achieve-val.purple { color: var(--purple); }
+
+  @media (max-width: 768px) {
+    .main { grid-template-columns: 1fr; padding: 16px; }
+    .header-inner { flex-direction: column; gap: 16px; }
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <div class="avatar">아</div>
+    <div style="flex:1">
+      <div class="name">Hong Arang · 홍아랑</div>
+      <span class="title-tag">Luxury Retail · BA / CDS · 명품 럭셔리 전문가</span>
+      <div class="contacts">
+        <span>📍 Busan, South Korea</span>
+        <span>✉️ ghddkfkd@naver.com</span>
+        <span style="color:#059669;font-weight:600">🔍 Open to Opportunities</span>
+      </div>
+      <div class="badge-row">
+        <span class="badge hl">Loro Piana</span>
+        <span class="badge hl">Bottega Veneta</span>
+        <span class="badge hl">Burberry</span>
+        <span class="badge">VIP Client Development</span>
+        <span class="badge">Styling Advisor</span>
+        <span class="badge">Luxury RTW</span>
+        <span class="badge">11 Years Experience</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="show('achievements')">📊 성과 하이라이트</button>
+    <button class="nav-btn" onclick="show('resume')">📄 경력사항</button>
+    <button class="nav-btn" onclick="show('skills')">💡 역량</button>
+  </div>
+</nav>
+
+<!-- ════ ACHIEVEMENTS ════ -->
+<div class="main" id="sec-achievements">
+
+  <!-- 핵심 지표 4개 -->
+  <div class="kpi-grid">
+    <div class="kpi-card c-blue">
+      <div class="kpi-label">연간 개인 매출 달성률</div>
+      <div class="kpi-value c-blue">101%+</div>
+      <div class="kpi-sub">2025 · 연간 목표 초과 달성</div>
+      <span class="kpi-change up">↑ 전년 대비 +6%</span>
+    </div>
+    <div class="kpi-card c-gold">
+      <div class="kpi-label">매장 성장 기여</div>
+      <div class="kpi-value c-gold">+19%</div>
+      <div class="kpi-sub">매장 전체 전년 대비 성장률</div>
+      <span class="kpi-change up">↑ 개인 점유 16%</span>
+    </div>
+    <div class="kpi-card c-green">
+      <div class="kpi-label">평균 객단가 (ATV)</div>
+      <div class="kpi-value c-green">312만원</div>
+      <div class="kpi-sub">거래 1건당 평균 구매액</div>
+      <span class="kpi-change up">↑ 전년 대비 +17%</span>
+    </div>
+    <div class="kpi-card c-purple">
+      <div class="kpi-label">VIP 고객 포트폴리오</div>
+      <div class="kpi-value c-purple">212명</div>
+      <div class="kpi-sub">CRM 담당 고객 수</div>
+      <span class="kpi-change up">↑ 크로스셀링 15%</span>
+    </div>
+  </div>
+
+  <!-- LEFT -->
+  <div>
+    <!-- 월별 달성률 -->
+    <div class="card">
+      <div class="card-title">📈 월별 개인 매출 달성률 (2025년)</div>
+      <div class="chart-wrap"><canvas id="cRate"></canvas></div>
+    </div>
+
+    <!-- 연도별 성장 -->
+    <div class="card">
+      <div class="card-title">📊 매장 전체 연간 성장 추이 (전년 대비 %)</div>
+      <div class="chart-wrap" style="height:180px"><canvas id="cGrowth"></canvas></div>
+    </div>
+
+    <!-- 카테고리 MIX -->
+    <div class="card">
+      <div class="card-title">🛍 개인 카테고리 MIX (2025년)</div>
+      <div class="chart-wrap" style="height:190px"><canvas id="cCat"></canvas></div>
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div>
+    <!-- 성과 하이라이트 -->
+    <div class="card">
+      <div class="card-title">🏆 주요 성과</div>
+      <div class="achieve-row">
+        <div class="achieve-item">
+          <span class="achieve-icon">💰</span>
+          <div>
+            <div class="achieve-label">2025 개인 연간 매출</div>
+            <div class="achieve-val blue">15억원 달성</div>
+          </div>
+        </div>
+        <div class="achieve-item">
+          <span class="achieve-icon">📈</span>
+          <div>
+            <div class="achieve-label">최고 단월 매출</div>
+            <div class="achieve-val gold">1.72억 (5월)</div>
+          </div>
+        </div>
+        <div class="achieve-item">
+          <span class="achieve-icon">💳</span>
+          <div>
+            <div class="achieve-label">최고 ATV 달성</div>
+            <div class="achieve-val green">392만원 (10월)</div>
+          </div>
+        </div>
+        <div class="achieve-item">
+          <span class="achieve-icon">👑</span>
+          <div>
+            <div class="achieve-label">VIP Tier 2-3 고객</div>
+            <div class="achieve-val purple">18명 관리</div>
+          </div>
+        </div>
+        <div class="achieve-item">
+          <span class="achieve-icon">🔄</span>
+          <div>
+            <div class="achieve-label">크로스셀링률</div>
+            <div class="achieve-val blue">15% (전년比 +0.8pp)</div>
+          </div>
+        </div>
+        <div class="achieve-item">
+          <span class="achieve-icon">🧥</span>
+          <div>
+            <div class="achieve-label">RTW 카테고리 특화</div>
+            <div class="achieve-val gold">개인 MIX 45.6%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 브랜드 경력 -->
+    <div class="card">
+      <div class="card-title">🌐 럭셔리 브랜드 경력</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="padding:10px 12px;border-radius:8px;background:#faf5ff;border:1px solid #e9d5ff;font-size:13px">
+          <div style="font-weight:700;color:#6d28d9">🪡 Loro Piana · LVMH</div>
+          <div style="color:var(--gray-600);font-size:12px;margin-top:2px">부매니저 / BA · CDS · 2022–2026</div>
+        </div>
+        <div style="padding:10px 12px;border-radius:8px;background:#fff7ed;border:1px solid #fed7aa;font-size:13px">
+          <div style="font-weight:700;color:#c2410c">🧵 Bottega Veneta · Kering</div>
+          <div style="color:var(--gray-600);font-size:12px;margin-top:2px">시니어 / 스타일링 어드바이저 · 2018–2022</div>
+        </div>
+        <div style="padding:10px 12px;border-radius:8px;background:var(--blue-light);border:1px solid var(--blue-mid);font-size:13px">
+          <div style="font-weight:700;color:var(--blue)">🧥 Burberry</div>
+          <div style="color:var(--gray-600);font-size:12px;margin-top:2px">세일즈 어소시에이트 · 2014–2017</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /achievements -->
+
+<!-- ════ RESUME ════ -->
+<div class="main" id="sec-resume" style="display:none">
+  <div>
+    <div class="card">
+      <div class="card-title">👤 자기소개</div>
+      <p style="color:var(--gray-600);font-size:13px;line-height:1.9">
+        약 <strong>11년간 명품 럭셔리 리테일</strong>에서 Burberry · Bottega Veneta · Loro Piana 경력을 쌓았습니다.<br>
+        Loro Piana 부매니저(BA/CDS)로 재직하며 2025년 <strong>개인 연간 매출 15억원</strong>을 달성했습니다.<br>
+        Bottega Veneta 스타일링 어드바이저 경험을 바탕으로 한 토탈 스타일링 제안과 VIP CDS 활동을 통해
+        고객 포트폴리오 212명을 관리하며 지속적인 매출 성장에 기여했습니다.
+      </p>
+      <div style="margin-top:14px;padding:12px 16px;background:#f0fdf4;border-radius:8px;font-size:13px;color:#166534;border-left:3px solid var(--green)">
+        "시련은 있어도 실패는 없다." — 포기하지 않고 끝까지 최선을 다하는 자세를 신조로 삼습니다.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">💼 경력사항</div>
+
+      <div class="work-item">
+        <div class="work-header">
+          <div>
+            <div class="work-company">Loro Piana (LVMH) — 신세계 센텀</div>
+            <div class="work-role">부매니저 / BA · CDS (Client Development Specialist)</div>
+          </div>
+          <span class="work-period">2022.11 – 2026.03</span>
+        </div>
+        <div class="work-desc">
+          <ul>
+            <li>개인 연간 매출 <strong>15억원 달성</strong> (2025, 목표 초과달성 · 전년 대비 +6%)</li>
+            <li>매장 전체 전년 대비 <strong>+19% 성장 기여</strong>, 개인 점유율 16%</li>
+            <li>평균 객단가(ATV) <strong>312만원</strong> 유지 (전년 대비 +17%)</li>
+            <li>VIP 고객 CDS 담당 — 212명 포트폴리오 관리, Tier 2-3 상위 VIP 18명</li>
+            <li>RTW 카테고리 특화 운영 (개인 MIX 45.6%), 크로스셀링률 15%</li>
+          </ul>
+          <div style="margin-top:8px">
+            <span class="ach">💰 연간 15억 달성</span>
+            <span class="ach">📈 매장 +19% 기여</span>
+            <span class="ach">💳 ATV 312만원</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-item">
+        <div class="work-header">
+          <div>
+            <div class="work-company">Bottega Veneta (Kering) — 신세계 센텀</div>
+            <div class="work-role">시니어 / 스타일링 어드바이저 (Styling Advisor)</div>
+          </div>
+          <span class="work-period">2018.09 – 2022.10</span>
+        </div>
+        <div class="work-desc">
+          <ul>
+            <li>스타일링 어드바이저 역임 — 토탈 코디네이션 제안 및 VIP 전담 스타일링</li>
+            <li>고객 맞춤 컨설팅으로 재구매율 및 객단가 향상</li>
+            <li>RTW · 가방 · 액세서리 전반 카테고리 전문성 심화</li>
+          </ul>
+          <div style="margin-top:8px">
+            <span class="ach">🎨 스타일링 어드바이저</span>
+            <span class="ach">4년 3개월 장기 근속</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-item">
+        <div class="work-header">
+          <div>
+            <div class="work-company">Burberry Korea — 롯데 울산점</div>
+            <div class="work-role">세일즈 어소시에이트 (Sales Associate)</div>
+          </div>
+          <span class="work-period">2014.11 – 2017.12</span>
+        </div>
+        <div class="work-desc">
+          <ul>
+            <li>글로벌 럭셔리 브랜드 세일즈 커리어 시작</li>
+            <li>영어 비즈니스 커뮤니케이션 및 다국적 고객 응대</li>
+            <li>시즌별 신상품 런칭 참여 및 고객 데이터 관리</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🎓 학력</div>
+      <div class="work-item" style="padding:14px 0">
+        <div class="work-header">
+          <div><div class="work-company">동의과학대학교</div><div class="work-role">관광일본어과 (전문학사)</div></div>
+          <span class="work-period">2008 – 2010</span>
+        </div>
+        <div class="work-desc" style="margin-top:8px">
+          <span class="ach">관광·서비스 전공</span>
+          <span class="ach">일본어 전문 교육</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="card">
+      <div class="card-title">📋 프로필</div>
+      <div class="summ-item"><div class="summ-key">현 상태</div><div class="summ-val" style="color:#059669">Open to Opportunities</div></div>
+      <div class="summ-item"><div class="summ-key">전문 분야</div><div class="summ-val">명품 럭셔리 리테일</div></div>
+      <div class="summ-item"><div class="summ-key">경력</div><div class="summ-val">약 11년 (명품 브랜드 전문)</div></div>
+      <div class="summ-item"><div class="summ-key">최종 직급</div><div class="summ-val">부매니저 / BA · CDS</div></div>
+      <div class="summ-item"><div class="summ-key">언어</div><div class="summ-val">한국어(네이티브) · 일본어(중급)</div></div>
+      <div class="summ-item"><div class="summ-key">자격</div><div class="summ-val">JPT 600점</div></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🗓 커리어 타임라인</div>
+      <div class="tl">
+        <div class="tl-item"><div class="tl-date" style="color:#059669;font-weight:700">2026.04 –</div><div class="tl-content" style="color:#059669">Open to Opportunities</div></div>
+        <div class="tl-item"><div class="tl-date">2022.11 – 2026.03</div><div class="tl-content">Loro Piana 부매니저</div><div class="tl-sub">BA/CDS · 신세계 센텀</div></div>
+        <div class="tl-item"><div class="tl-date">2018.09 – 2022.10</div><div class="tl-content">Bottega Veneta 시니어</div><div class="tl-sub">스타일링 어드바이저</div></div>
+        <div class="tl-item"><div class="tl-date">2014.11 – 2017.12</div><div class="tl-content">Burberry Korea</div><div class="tl-sub">세일즈 어소시에이트</div></div>
+        <div class="tl-item"><div class="tl-date">2008 – 2010</div><div class="tl-content">동의과학대 졸업</div><div class="tl-sub">관광일본어과</div></div>
+      </div>
+    </div>
+  </div>
+</div><!-- /resume -->
+
+<!-- ════ SKILLS ════ -->
+<div class="main" id="sec-skills" style="display:none">
+  <div>
+    <div class="card">
+      <div class="card-title">💪 핵심 역량</div>
+      <div id="skill-bars"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">🕸 역량 레이더 차트</div>
+      <div class="chart-wrap tall"><canvas id="cRadar"></canvas></div>
+    </div>
+  </div>
+
+  <div>
+    <div class="card">
+      <div class="card-title">🎯 직무별 적합도</div>
+      <div class="chart-wrap tall"><canvas id="cFit"></canvas></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🛠 보유 도구 & 언어</div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px">
+        <div style="padding:12px;background:var(--gray-50);border-radius:8px;border:1px solid var(--gray-200)">
+          <div style="font-size:11px;font-weight:700;color:var(--gray-400);margin-bottom:7px">LANGUAGE</div>
+          <div style="font-size:13px">🇰🇷 한국어 — Native</div>
+          <div style="font-size:13px;margin-top:5px">🇯🇵 일본어 — Intermediate (JPT 600)</div>
+        </div>
+        <div style="padding:12px;background:var(--gray-50);border-radius:8px;border:1px solid var(--gray-200)">
+          <div style="font-size:11px;font-weight:700;color:var(--gray-400);margin-bottom:7px">TOOLS</div>
+          <div style="font-size:13px">💾 SAP ERP</div>
+          <div style="font-size:13px;margin-top:5px">📊 Excel / PowerPoint</div>
+          <div style="font-size:13px;margin-top:5px">👤 CRM / CDS</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">💬 강점 키워드</div>
+      <div style="display:flex;flex-wrap:wrap;gap:7px">
+        <span class="badge hl" style="font-size:13px;padding:6px 12px">Luxury RTW</span>
+        <span class="badge hl" style="font-size:13px;padding:6px 12px">VIP CRM · CDS</span>
+        <span class="badge hl" style="font-size:13px;padding:6px 12px">Styling Advisor</span>
+        <span class="badge" style="font-size:13px;padding:6px 12px">Cross-Selling</span>
+        <span class="badge" style="font-size:13px;padding:6px 12px">Client Development</span>
+        <span class="badge" style="font-size:13px;padding:6px 12px">ATV Management</span>
+        <span class="badge" style="font-size:13px;padding:6px 12px">Japanese (JPT 600)</span>
+        <span class="badge" style="font-size:13px;padding:6px 12px">Team Collaboration</span>
+      </div>
+    </div>
+  </div>
+</div><!-- /skills -->
+
+<script>
+Chart.defaults.font.family = "'Apple SD Gothic Neo','Pretendard','Noto Sans KR',sans-serif";
+Chart.defaults.font.size = 11;
+Chart.defaults.color = '#94a3b8';
+
+const months = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+
+// 개인 TARGET 대비 달성률 (%)
+const achieveRate = [100.1, 102.7, 100.1, 101.0, 110.0, 100.2, 100.5, 101.3, 100.4, 100.3, 100.0, 101.4];
+
+// 매장 전체 전년 대비 성장률 (%)
+const storeGrowth = [3, 10, 7, 17, 24, 40, 46, 12, 24, 22, 22, 23];
+
+new Chart(document.getElementById('cRate'), {
+  type: 'bar',
+  data: {
+    labels: months,
+    datasets: [{
+      label: '달성률(%)',
+      data: achieveRate,
+      backgroundColor: achieveRate.map(v => v >= 100 ? 'rgba(37,99,235,0.75)' : 'rgba(220,38,38,0.65)'),
+      borderRadius: 6
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ctx.parsed.y.toFixed(1) + '%' } },
+      annotation: {}
+    },
+    scales: {
+      y: {
+        min: 97, max: 113,
+        grid: { color: '#f1f5f9' },
+        ticks: { callback: v => v + '%' }
+      },
+      x: { grid: { display: false } }
+    }
+  }
+});
+
+new Chart(document.getElementById('cGrowth'), {
+  type: 'bar',
+  data: {
+    labels: months,
+    datasets: [{
+      label: '전년 대비 성장률(%)',
+      data: storeGrowth,
+      backgroundColor: storeGrowth.map(v => `rgba(5,150,105,${0.4 + v/100})`),
+      borderRadius: 5
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => '+' + ctx.parsed.y + '%' } } },
+    scales: {
+      y: { min: 0, grid: { color: '#f1f5f9' }, ticks: { callback: v => '+' + v + '%' } },
+      x: { grid: { display: false } }
+    }
+  }
+});
+
+new Chart(document.getElementById('cCat'), {
+  type: 'doughnut',
+  data: {
+    labels: ['RTW 45.6%','Bags 27.0%','Shoes 22.8%','Accessories 2.7%','기타 1.9%'],
+    datasets: [{ data: [45.6,27.0,22.8,2.7,1.9], backgroundColor: ['#2563eb','#7c3aed','#d97706','#059669','#94a3b8'], borderWidth: 0 }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { position: 'right', labels: { boxWidth: 10, padding: 10, font: { size: 11 } } } },
+    cutout: '60%'
+  }
+});
+
+function initSkills() {
+  const skills = [
+    { name: 'VIP CRM · Client Development', pct: 92 },
+    { name: '럭셔리 RTW 전문성', pct: 95 },
+    { name: '스타일링 어드바이저', pct: 90 },
+    { name: '크로스셀링 · 객단가 관리', pct: 85 },
+    { name: '매장 운영 · SAP ERP', pct: 80 },
+    { name: '팀 협업 · 커뮤니케이션', pct: 83 },
+    { name: '일본어 (JPT 600)', pct: 72 },
+  ];
+  const container = document.getElementById('skill-bars');
+  skills.forEach(s => {
+    container.innerHTML += `<div class="skill-item"><div class="skill-hd"><span>${s.name}</span><span class="skill-pct">${s.pct}%</span></div><div class="skill-bar"><div class="skill-fill" style="width:${s.pct}%"></div></div></div>`;
+  });
+
+  new Chart(document.getElementById('cRadar'), {
+    type: 'radar',
+    data: {
+      labels: ['VIP·CRM','RTW전문성','스타일링','크로스셀링','운영·SAP','팀협업'],
+      datasets: [{
+        data: [92,95,90,85,80,83],
+        backgroundColor: 'rgba(37,99,235,0.15)', borderColor: '#2563eb', borderWidth: 2,
+        pointBackgroundColor: '#2563eb', pointRadius: 4
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { r: { min: 50, max: 100, ticks: { stepSize: 10, font: { size: 10 } }, grid: { color: '#e2e8f0' }, pointLabels: { font: { size: 11 } } } }
+    }
+  });
+
+  new Chart(document.getElementById('cFit'), {
+    type: 'bar',
+    data: {
+      labels: ['부매니저·점장','스타일리스트·SA','CRM·CDS 전담','MD·바이어','VM·운영기획'],
+      datasets: [{
+        data: [94,92,88,72,70],
+        backgroundColor: ['rgba(37,99,235,0.85)','rgba(37,99,235,0.75)','rgba(37,99,235,0.65)','rgba(37,99,235,0.50)','rgba(37,99,235,0.45)'],
+        borderRadius: 6
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ctx.parsed.x + '%' } } },
+      scales: { x: { min: 60, max: 100, grid: { color: '#f1f5f9' }, ticks: { callback: v => v + '%' } }, y: { grid: { display: false } } }
+    }
+  });
+}
+
+function show(name) {
+  ['achievements','resume','skills'].forEach(s => {
+    document.getElementById('sec-' + s).style.display = s === name ? 'grid' : 'none';
+  });
+  document.querySelectorAll('.nav-btn').forEach((b, i) => {
+    b.classList.toggle('active', ['achievements','resume','skills'][i] === name);
+  });
+  if (name === 'skills' && !window._sd) { initSkills(); window._sd = true; }
+}
+</script>
+</body>
+</html>
