@@ -17,7 +17,8 @@
 
   .header { background: white; border-bottom: 1px solid var(--gray-200); padding: 40px 0 32px; }
   .header-inner { max-width: 1000px; margin: 0 auto; padding: 0 32px; display: flex; gap: 32px; align-items: flex-start; }
-  .avatar { width: 96px; height: 96px; border-radius: 50%; background: linear-gradient(135deg, #2563eb, #7c3aed); display: flex; align-items: center; justify-content: center; font-size: 34px; color: white; font-weight: 700; flex-shrink: 0; }
+  .avatar { width: 96px; height: 96px; border-radius: 50%; background: linear-gradient(135deg, #2563eb, #7c3aed); display: flex; align-items: center; justify-content: center; font-size: 34px; color: white; font-weight: 700; flex-shrink: 0; overflow: hidden; }
+  .avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
   .name { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
   .title-tag { display: inline-block; margin-top: 6px; background: var(--blue-light); color: var(--blue); padding: 3px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; }
   .contacts { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px; font-size: 13px; color: var(--gray-600); }
@@ -119,7 +120,7 @@
 <!-- HEADER -->
 <div class="header">
   <div class="header-inner">
-    <div class="avatar">아</div>
+    <div class="avatar"><img src="프로필사진.PNG" alt="Hong Arang"></div>
     <div style="flex:1">
       <div class="name">Hong Arang · 홍아랑</div>
       <span class="title-tag">Luxury Retail · BA / CDS · 명품 럭셔리 전문가</span>
