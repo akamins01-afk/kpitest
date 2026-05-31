@@ -144,15 +144,15 @@
 <!-- NAV -->
 <nav class="nav">
   <div class="nav-inner">
-    <button class="nav-btn active" onclick="show('achievements')">📊 성과 하이라이트</button>
-    <button class="nav-btn" onclick="show('resume')">📄 경력사항</button>
+    <button class="nav-btn active" onclick="show('resume')">📄 경력사항</button>
     <button class="nav-btn" onclick="show('competency')">🎯 직무역량</button>
+    <button class="nav-btn" onclick="show('achievements')">📊 성과 하이라이트</button>
     <button class="nav-btn" onclick="show('skills')">💡 역량</button>
   </div>
 </nav>
 
 <!-- ════ ACHIEVEMENTS ════ -->
-<div class="main" id="sec-achievements">
+<div class="main" id="sec-achievements" style="display:none">
 
   <!-- 핵심 지표 4개 -->
   <div class="kpi-grid">
@@ -277,7 +277,7 @@
 </div><!-- /achievements -->
 
 <!-- ════ RESUME ════ -->
-<div class="main" id="sec-resume" style="display:none">
+<div class="main" id="sec-resume">
   <div>
     <div class="card">
       <div class="card-title">👤 자기소개</div>
@@ -769,7 +769,7 @@ function show(name) {
     document.getElementById('sec-' + s).style.display = s === name ? 'grid' : 'none';
   });
   document.querySelectorAll('.nav-btn').forEach((b, i) => {
-    b.classList.toggle('active', ['achievements','resume','competency','skills'][i] === name);
+    b.classList.toggle('active', ['resume','competency','achievements','skills'][i] === name);
   });
   if (name === 'skills' && !window._sd) { initSkills(); window._sd = true; }
 }
