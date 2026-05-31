@@ -82,6 +82,24 @@
   .tl-content { font-size: 13px; font-weight: 600; margin-top: 1px; }
   .tl-sub { font-size: 12px; color: var(--gray-600); margin-top: 1px; }
 
+  .comp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .comp-card { background: white; border: 1px solid var(--gray-200); border-radius: 12px; padding: 18px; position: relative; overflow: hidden; }
+  .comp-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .comp-card.cc-blue::before { background: var(--blue); }
+  .comp-card.cc-gold::before { background: var(--gold); }
+  .comp-card.cc-green::before { background: var(--green); }
+  .comp-card.cc-purple::before { background: var(--purple); }
+  .comp-icon { font-size: 26px; margin-bottom: 10px; }
+  .comp-name { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+  .comp-desc { font-size: 12px; color: var(--gray-600); line-height: 1.7; }
+  .comp-evidence { margin-top: 10px; padding: 8px 10px; border-radius: 7px; font-size: 11px; font-weight: 700; }
+  .comp-card.cc-blue .comp-evidence { background: var(--blue-light); color: var(--blue); }
+  .comp-card.cc-gold .comp-evidence { background: #fffbeb; color: var(--gold); }
+  .comp-card.cc-green .comp-evidence { background: #f0fdf4; color: var(--green); }
+  .comp-card.cc-purple .comp-evidence { background: #faf5ff; color: var(--purple); }
+
+  @media (max-width: 768px) { .comp-grid { grid-template-columns: 1fr; } }
+
   .achieve-row { display: flex; flex-direction: column; gap: 10px; }
   .achieve-item { display: flex; align-items: center; gap: 14px; padding: 12px 14px; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 10px; }
   .achieve-icon { font-size: 22px; flex-shrink: 0; }
@@ -128,6 +146,7 @@
   <div class="nav-inner">
     <button class="nav-btn active" onclick="show('achievements')">📊 성과 하이라이트</button>
     <button class="nav-btn" onclick="show('resume')">📄 경력사항</button>
+    <button class="nav-btn" onclick="show('competency')">🎯 직무역량</button>
     <button class="nav-btn" onclick="show('skills')">💡 역량</button>
   </div>
 </nav>
@@ -378,6 +397,105 @@
   </div>
 </div><!-- /resume -->
 
+<!-- ════ COMPETENCY ════ -->
+<div class="main" id="sec-competency" style="display:none">
+  <div>
+    <div class="card">
+      <div class="card-title">🎯 핵심 직무역량</div>
+      <div class="comp-grid">
+
+        <div class="comp-card cc-blue">
+          <div class="comp-icon">💰</div>
+          <div class="comp-name">매출 창출 & 목표 달성</div>
+          <div class="comp-desc">개인 연간 목표를 지속 초과 달성하는 강한 실행력. 월별 플랜 수립과 진척 관리를 통해 연중 안정적인 성과를 유지합니다.</div>
+          <div class="comp-evidence">2025 연간 15억 달성 · 목표 달성률 101%+</div>
+        </div>
+
+        <div class="comp-card cc-gold">
+          <div class="comp-icon">👑</div>
+          <div class="comp-name">VIP 고객 개발 & CDS</div>
+          <div class="comp-desc">CRM 기반의 체계적인 VIP 포트폴리오 관리. 고객 구매 히스토리 분석과 맞춤 제안으로 장기 관계를 구축합니다.</div>
+          <div class="comp-evidence">212명 담당 · Tier 2-3 VIP 18명 · 크로스셀링 15%</div>
+        </div>
+
+        <div class="comp-card cc-green">
+          <div class="comp-icon">🎨</div>
+          <div class="comp-name">럭셔리 스타일링 전문성</div>
+          <div class="comp-desc">RTW · 백 · 슈즈 · 액세서리를 아우르는 토탈 코디네이션 역량. 고객 라이프스타일에 맞는 스타일 솔루션을 제안합니다.</div>
+          <div class="comp-evidence">RTW 카테고리 MIX 45.6% · Bottega Veneta 스타일링 어드바이저 4년</div>
+        </div>
+
+        <div class="comp-card cc-purple">
+          <div class="comp-icon">📈</div>
+          <div class="comp-name">객단가 & 수익성 관리</div>
+          <div class="comp-desc">고객 1인당 구매 단가를 지속 상향하는 컨설팅 역량. 제품 지식과 스타일링 제안을 통해 업셀링을 자연스럽게 유도합니다.</div>
+          <div class="comp-evidence">ATV 312만원 (전년 대비 +17%) · 최고 ATV 392만원</div>
+        </div>
+
+        <div class="comp-card cc-blue">
+          <div class="comp-icon">🤝</div>
+          <div class="comp-name">팀 리더십 & 매장 운영</div>
+          <div class="comp-desc">부매니저로서 팀원 코칭 및 일일 운영 총괄. SAP ERP 기반의 재고·매출 데이터를 활용한 의사결정을 지원합니다.</div>
+          <div class="comp-evidence">부매니저 (Loro Piana) · SAP ERP 운용 · 매장 성장 기여 +19%</div>
+        </div>
+
+        <div class="comp-card cc-gold">
+          <div class="comp-icon">🌏</div>
+          <div class="comp-name">다국적 고객 커뮤니케이션</div>
+          <div class="comp-desc">일본어 중급(JPT 600) 및 영어 비즈니스 커뮤니케이션으로 외국인 VIP 고객 대응. 글로벌 럭셔리 환경에 특화된 응대 역량입니다.</div>
+          <div class="comp-evidence">일본어 JPT 600 · 영어 비즈니스 커뮤니케이션 · Burberry 글로벌 고객 응대</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="card">
+      <div class="card-title">📐 역량 × 직무 적합도</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="font-size:12px;color:var(--gray-400);margin-bottom:2px">각 역량이 어떤 직무에 적합한지 나타냅니다</div>
+        <div style="overflow-x:auto">
+          <table style="width:100%;border-collapse:collapse;font-size:11px">
+            <thead>
+              <tr style="background:var(--gray-50)">
+                <th style="padding:8px 10px;text-align:left;border-bottom:1px solid var(--gray-200);color:var(--gray-600);font-weight:700">역량</th>
+                <th style="padding:8px 6px;text-align:center;border-bottom:1px solid var(--gray-200);color:var(--gray-600);font-weight:700;white-space:nowrap">부매니저</th>
+                <th style="padding:8px 6px;text-align:center;border-bottom:1px solid var(--gray-200);color:var(--gray-600);font-weight:700;white-space:nowrap">CDS</th>
+                <th style="padding:8px 6px;text-align:center;border-bottom:1px solid var(--gray-200);color:var(--gray-600);font-weight:700;white-space:nowrap">스타일리스트</th>
+                <th style="padding:8px 6px;text-align:center;border-bottom:1px solid var(--gray-200);color:var(--gray-600);font-weight:700;white-space:nowrap">MD</th>
+              </tr>
+            </thead>
+            <tbody id="comp-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🏅 역량 증명 수치</div>
+      <div style="display:flex;flex-direction:column;gap:9px">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--blue-light);border-radius:8px;border:1px solid var(--blue-mid)">
+          <span style="font-size:12px;color:var(--blue);font-weight:600">11년 명품 브랜드 경력</span>
+          <span style="font-size:16px;font-weight:700;color:var(--blue)">Burberry → BV → LP</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:#fffbeb;border-radius:8px;border:1px solid #fde68a">
+          <span style="font-size:12px;color:var(--gold);font-weight:600">최고 단월 매출 기록</span>
+          <span style="font-size:16px;font-weight:700;color:var(--gold)">1.72억 (2025.05)</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:#f0fdf4;border-radius:8px;border:1px solid #bbf7d0">
+          <span style="font-size:12px;color:var(--green);font-weight:600">VIP 장기 유지율</span>
+          <span style="font-size:16px;font-weight:700;color:var(--green)">재방문율 상위</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:#faf5ff;border-radius:8px;border:1px solid #e9d5ff">
+          <span style="font-size:12px;color:var(--purple);font-weight:600">일본어 공인 점수</span>
+          <span style="font-size:16px;font-weight:700;color:var(--purple)">JPT 600점</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /competency -->
+
 <!-- ════ SKILLS ════ -->
 <div class="main" id="sec-skills" style="display:none">
   <div>
@@ -557,14 +675,34 @@ function initSkills() {
   });
 }
 
+function initCompetency() {
+  const rows = [
+    { name: '매출 창출 & 목표 달성', scores: ['★★★','★★★','★★★','★★'] },
+    { name: 'VIP 고객 개발 & CDS',   scores: ['★★★','★★★','★★','★'] },
+    { name: '럭셔리 스타일링',         scores: ['★★','★★','★★★','★'] },
+    { name: '객단가 & 수익성 관리',    scores: ['★★★','★★★','★★','★★'] },
+    { name: '팀 리더십 & 매장 운영',   scores: ['★★★','★★','★','★★'] },
+    { name: '다국적 커뮤니케이션',     scores: ['★★','★★★','★★','★'] },
+  ];
+  const colors = { '★★★': '#2563eb', '★★': '#d97706', '★': '#94a3b8' };
+  const tbody = document.getElementById('comp-table-body');
+  rows.forEach(r => {
+    tbody.innerHTML += `<tr style="border-bottom:1px solid var(--gray-100)">
+      <td style="padding:8px 10px;font-size:11px;font-weight:600;color:var(--gray-800)">${r.name}</td>
+      ${r.scores.map(s => `<td style="padding:8px 6px;text-align:center;color:${colors[s]};font-size:12px">${s}</td>`).join('')}
+    </tr>`;
+  });
+}
+
 function show(name) {
-  ['achievements','resume','skills'].forEach(s => {
+  ['achievements','resume','competency','skills'].forEach(s => {
     document.getElementById('sec-' + s).style.display = s === name ? 'grid' : 'none';
   });
   document.querySelectorAll('.nav-btn').forEach((b, i) => {
-    b.classList.toggle('active', ['achievements','resume','skills'][i] === name);
+    b.classList.toggle('active', ['achievements','resume','competency','skills'][i] === name);
   });
   if (name === 'skills' && !window._sd) { initSkills(); window._sd = true; }
+  if (name === 'competency' && !window._cd) { initCompetency(); window._cd = true; }
 }
 </script>
 </body>
