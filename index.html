@@ -4,130 +4,585 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hong Arang | Luxury Retail Professional</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&family=Noto+Sans+KR:wght@300;400;500;600&family=Noto+Serif+KR:wght@300;400;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
   :root {
-    --blue: #2563eb; --blue-light: #eff6ff; --blue-mid: #93c5fd;
-    --gray-50: #f8fafc; --gray-100: #f1f5f9; --gray-200: #e2e8f0;
-    --gray-400: #94a3b8; --gray-600: #475569; --gray-800: #1e293b;
-    --gold: #d97706; --green: #059669; --purple: #7c3aed;
+    --bg:        #F4EFE6;
+    --bg-soft:   #EFE8DB;
+    --card:      #FAF7F0;
+    --ink:       #211D18;
+    --ink-soft:  #574E44;
+    --muted:     #948975;
+    --gold:      #9C7B43;
+    --gold-deep: #856636;
+    --gold-light:#C9A86A;
+    --line:      #DFD6C5;
+    --line-soft: #E8E1D2;
+    --quote-bg:  #EEE7D7;
+    --font-display: 'Cormorant Garamond', 'Noto Serif KR', Georgia, serif;
+    --font-sans: 'Jost', 'Noto Sans KR', sans-serif;
+    --font-kr:   'Noto Sans KR', sans-serif;
+    --r-xs:  4px;
+    --r-sm:  6px;
+    --r-md:  12px;
+    --r-pill:100px;
+    --r-arch:200px 200px 10px 10px;
+    --shadow-portrait: 0 30px 60px -30px rgba(0,0,0,.40);
+    --track-display: -0.015em;
+    --track-label:   0.34em;
+    --track-kr:      0.08em;
+    --ease: cubic-bezier(0.2, 0, 0, 1);
+    --dur-short: 250ms;
+    --dur-med:   500ms;
   }
-  body { font-family: 'Apple SD Gothic Neo','Pretendard','Noto Sans KR',sans-serif; background: var(--gray-50); color: var(--gray-800); font-size: 14px; line-height: 1.6; }
 
-  .header { background: white; border-bottom: 1px solid var(--gray-200); padding: 40px 0 32px; }
-  .header-inner { max-width: 1000px; margin: 0 auto; padding: 0 32px; display: flex; gap: 32px; align-items: flex-start; }
-  .avatar { width: 96px; height: 96px; border-radius: 50%; background: linear-gradient(135deg, #2563eb, #7c3aed); display: flex; align-items: center; justify-content: center; font-size: 34px; color: white; font-weight: 700; flex-shrink: 0; overflow: hidden; }
-  .avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
-  .name { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
-  .title-tag { display: inline-block; margin-top: 6px; background: var(--blue-light); color: var(--blue); padding: 3px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; }
-  .contacts { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px; font-size: 13px; color: var(--gray-600); }
-  .badge-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
-  .badge { background: var(--gray-100); border: 1px solid var(--gray-200); border-radius: 6px; padding: 3px 10px; font-size: 12px; color: var(--gray-600); font-weight: 500; }
-  .badge.hl { background: var(--blue-light); border-color: var(--blue-mid); color: var(--blue); }
+  body {
+    font-family: var(--font-kr);
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 14px;
+    line-height: 1.7;
+    letter-spacing: var(--track-kr);
+  }
 
-  .nav { background: white; border-bottom: 1px solid var(--gray-200); position: sticky; top: 0; z-index: 100; }
-  .nav-inner { max-width: 1000px; margin: 0 auto; padding: 0 32px; display: flex; }
-  .nav-btn { padding: 13px 18px; border: none; background: none; font-size: 14px; font-weight: 500; color: var(--gray-400); cursor: pointer; border-bottom: 2px solid transparent; transition: all .15s; white-space: nowrap; }
-  .nav-btn:hover { color: var(--blue); }
-  .nav-btn.active { color: var(--blue); border-bottom-color: var(--blue); }
+  /* ── HEADER ── */
+  .header {
+    background: var(--card);
+    border-bottom: 1px solid var(--line);
+    padding: 52px 0 44px;
+  }
+  .header-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 48px;
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+  }
+  .avatar {
+    width: 104px;
+    height: 104px;
+    border-radius: var(--r-arch);
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-portrait);
+  }
+  .avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold-deep));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 36px;
+    font-style: italic;
+    color: var(--card);
+    font-weight: 300;
+  }
 
-  .main { max-width: 1000px; margin: 0 auto; padding: 28px 32px; display: grid; grid-template-columns: 1fr 300px; gap: 20px; align-items: start; }
+  .name {
+    font-family: var(--font-display);
+    font-size: clamp(26px, 3.4vw, 38px);
+    font-weight: 400;
+    letter-spacing: var(--track-display);
+    color: var(--ink);
+    line-height: 1.15;
+  }
+  .name-dot { color: var(--gold); margin: 0 4px; }
+  .title-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    padding: 4px 14px;
+    border: 1px solid var(--gold-light);
+    border-radius: var(--r-pill);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--gold-deep);
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+    background: transparent;
+  }
+  .contacts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    margin-top: 14px;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .contacts span { display: flex; align-items: center; gap: 5px; }
+  .badge-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+  .badge {
+    border: 1px solid var(--line);
+    border-radius: var(--r-xs);
+    padding: 3px 10px;
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    background: transparent;
+  }
+  .badge.hl {
+    border-color: var(--gold-light);
+    color: var(--gold-deep);
+    background: rgba(156,123,67,0.06);
+  }
 
-  .card { background: white; border: 1px solid var(--gray-200); border-radius: 12px; padding: 22px; margin-bottom: 18px; }
-  .card-title { font-size: 14px; font-weight: 700; color: var(--blue); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--gray-100); display: flex; align-items: center; gap: 7px; }
+  /* ── NAV ── */
+  .nav {
+    background: var(--card);
+    border-bottom: 1px solid var(--line);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 48px;
+    display: flex;
+  }
+  .nav-btn {
+    padding: 15px 20px;
+    border: none;
+    background: none;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+    color: var(--muted);
+    cursor: pointer;
+    border-bottom: 1.5px solid transparent;
+    transition: color var(--dur-short) var(--ease), border-color var(--dur-short) var(--ease);
+    white-space: nowrap;
+  }
+  .nav-btn:hover { color: var(--gold); }
+  .nav-btn.active { color: var(--gold-deep); border-bottom-color: var(--gold); }
 
-  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 18px; grid-column: 1 / -1; }
-  .kpi-card { background: white; border: 1px solid var(--gray-200); border-radius: 12px; padding: 18px; position: relative; overflow: hidden; }
-  .kpi-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
-  .kpi-card.c-blue::before { background: var(--blue); }
-  .kpi-card.c-gold::before { background: var(--gold); }
-  .kpi-card.c-green::before { background: var(--green); }
-  .kpi-card.c-purple::before { background: var(--purple); }
-  .kpi-label { font-size: 11px; color: var(--gray-400); font-weight: 600; margin-bottom: 5px; }
-  .kpi-value { font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
-  .kpi-value.c-blue { color: var(--blue); } .kpi-value.c-gold { color: var(--gold); } .kpi-value.c-green { color: var(--green); } .kpi-value.c-purple { color: var(--purple); }
-  .kpi-sub { font-size: 11px; color: var(--gray-400); margin-top: 3px; }
-  .kpi-change { display: inline-flex; align-items: center; gap: 2px; font-size: 11px; font-weight: 600; padding: 2px 7px; border-radius: 4px; margin-top: 7px; }
-  .kpi-change.up { background: #dcfce7; color: #166534; }
+  /* ── MAIN GRID ── */
+  .main {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 36px 48px;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 22px;
+    align-items: start;
+  }
 
+  /* ── CARD ── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--r-md);
+    padding: 26px;
+    margin-bottom: 20px;
+  }
+  .card-title {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--ink);
+    letter-spacing: var(--track-display);
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line-soft);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-title .icon { font-style: normal; font-size: 15px; }
+
+  /* ── DIVIDER ── */
+  .section-rule {
+    border: none;
+    border-top: 1px solid var(--line-soft);
+    margin: 20px 0;
+  }
+
+  /* ── KPI GRID ── */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 22px;
+    grid-column: 1 / -1;
+  }
+  .kpi-card {
+    background: var(--card);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--r-md);
+    padding: 20px 18px;
+    position: relative;
+    overflow: hidden;
+  }
+  .kpi-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+    opacity: 0.5;
+  }
+  .kpi-card.c-gold::after { background: var(--gold); opacity: 1; }
+  .kpi-card.c-ink::after { background: var(--ink); opacity: 0.4; }
+  .kpi-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .kpi-value {
+    font-family: var(--font-display);
+    font-size: clamp(26px, 2.8vw, 34px);
+    font-weight: 300;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .kpi-value.c-gold { color: var(--gold-deep); }
+  .kpi-sub {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+  .kpi-change {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: var(--r-xs);
+    margin-top: 8px;
+    background: rgba(156,123,67,0.10);
+    color: var(--gold-deep);
+    letter-spacing: 0.02em;
+  }
+
+  /* ── CHART ── */
   .chart-wrap { position: relative; height: 200px; margin-top: 8px; }
   .chart-wrap.tall { height: 260px; }
 
-  .work-item { padding: 18px 0; border-bottom: 1px solid var(--gray-100); }
+  /* ── WORK / EXPERIENCE ── */
+  .work-item { padding: 20px 0; border-bottom: 1px solid var(--line-soft); }
   .work-item:last-child { border-bottom: none; }
-  .work-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
-  .work-company { font-weight: 700; font-size: 14px; }
-  .work-period { font-size: 11px; color: white; background: var(--blue); padding: 3px 9px; border-radius: 999px; white-space: nowrap; font-weight: 600; }
-  .work-role { font-size: 12px; color: var(--blue); font-weight: 600; margin-top: 2px; }
-  .work-desc { margin-top: 10px; color: var(--gray-600); font-size: 13px; }
-  .work-desc ul { padding-left: 17px; }
+  .work-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .work-company {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: var(--track-display);
+  }
+  .work-period {
+    font-size: 11px;
+    color: var(--card);
+    background: var(--gold);
+    padding: 3px 10px;
+    border-radius: var(--r-pill);
+    white-space: nowrap;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+  }
+  .work-role {
+    font-size: 12px;
+    color: var(--gold-deep);
+    font-weight: 500;
+    margin-top: 3px;
+    letter-spacing: 0.03em;
+  }
+  .work-desc { margin-top: 10px; color: var(--ink-soft); font-size: 13px; }
+  .work-desc ul { padding-left: 16px; }
   .work-desc li { margin-bottom: 5px; }
-  .ach { display: inline-block; background: #fffbeb; border: 1px solid #fde68a; color: var(--gold); font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; margin: 4px 4px 0 0; }
+  .ach {
+    display: inline-block;
+    background: transparent;
+    border: 1px solid var(--gold-light);
+    color: var(--gold-deep);
+    font-size: 11px;
+    font-weight: 400;
+    padding: 2px 9px;
+    border-radius: var(--r-xs);
+    margin: 4px 4px 0 0;
+    letter-spacing: 0.03em;
+  }
 
-  .skill-item { margin-bottom: 13px; }
-  .skill-hd { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px; }
-  .skill-pct { color: var(--gray-400); font-size: 12px; }
-  .skill-bar { height: 6px; background: var(--gray-100); border-radius: 3px; overflow: hidden; }
-  .skill-fill { height: 100%; border-radius: 3px; background: var(--blue); }
+  /* ── SKILL BARS ── */
+  .skill-item { margin-bottom: 14px; }
+  .skill-hd { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px; }
+  .skill-pct { color: var(--muted); font-size: 12px; }
+  .skill-bar { height: 1.5px; background: var(--line); border-radius: 2px; overflow: visible; position: relative; }
+  .skill-fill { height: 100%; background: var(--gold); position: relative; transition: width 1s var(--ease); }
+  .skill-fill::after {
+    content: '';
+    position: absolute;
+    right: -3px;
+    top: -3px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--gold-deep);
+  }
 
+  /* ── PROFILE SUMMARY ── */
   .summ-item { margin-bottom: 14px; }
-  .summ-key { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--gray-400); letter-spacing: 0.5px; margin-bottom: 3px; }
-  .summ-val { font-size: 13px; font-weight: 600; }
+  .summ-key {
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: var(--track-label);
+    color: var(--muted);
+    margin-bottom: 3px;
+  }
+  .summ-val { font-size: 13px; font-weight: 500; color: var(--ink); }
 
+  /* ── TIMELINE ── */
   .tl { position: relative; padding-left: 22px; }
-  .tl::before { content: ''; position: absolute; left: 6px; top: 6px; bottom: 6px; width: 2px; background: var(--gray-200); }
-  .tl-item { position: relative; margin-bottom: 16px; }
-  .tl-item::before { content: ''; position: absolute; left: -19px; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: var(--blue); border: 2px solid white; box-shadow: 0 0 0 2px var(--blue); }
-  .tl-date { font-size: 11px; color: var(--gray-400); font-weight: 600; }
-  .tl-content { font-size: 13px; font-weight: 600; margin-top: 1px; }
-  .tl-sub { font-size: 12px; color: var(--gray-600); margin-top: 1px; }
+  .tl::before {
+    content: '';
+    position: absolute;
+    left: 5px; top: 8px; bottom: 8px;
+    width: 1px;
+    background: var(--line);
+  }
+  .tl-item { position: relative; margin-bottom: 18px; }
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -19px; top: 5px;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--card);
+    border: 1.5px solid var(--gold);
+  }
+  .tl-item.active::before { background: var(--gold); }
+  .tl-date { font-size: 10px; color: var(--muted); font-weight: 500; letter-spacing: 0.04em; }
+  .tl-content { font-size: 13px; font-weight: 600; margin-top: 1px; color: var(--ink); }
+  .tl-sub { font-size: 12px; color: var(--ink-soft); margin-top: 1px; }
 
-  .comp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .comp-card { background: white; border: 1px solid var(--gray-200); border-radius: 12px; padding: 18px; position: relative; overflow: hidden; }
-  .comp-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
-  .comp-card.cc-blue::before { background: var(--blue); }
+  /* ── COMPETENCY CARDS ── */
+  .comp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .comp-card {
+    background: var(--card);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--r-md);
+    padding: 20px;
+    position: relative;
+  }
+  .comp-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    border-radius: var(--r-md) var(--r-md) 0 0;
+  }
   .comp-card.cc-gold::before { background: var(--gold); }
-  .comp-card.cc-green::before { background: var(--green); }
-  .comp-card.cc-purple::before { background: var(--purple); }
-  .comp-icon { font-size: 26px; margin-bottom: 10px; }
-  .comp-name { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
-  .comp-desc { font-size: 12px; color: var(--gray-600); line-height: 1.7; }
-  .comp-evidence { margin-top: 10px; padding: 8px 10px; border-radius: 7px; font-size: 11px; font-weight: 700; }
-  .comp-card.cc-blue .comp-evidence { background: var(--blue-light); color: var(--blue); }
-  .comp-card.cc-gold .comp-evidence { background: #fffbeb; color: var(--gold); }
-  .comp-card.cc-green .comp-evidence { background: #f0fdf4; color: var(--green); }
-  .comp-card.cc-purple .comp-evidence { background: #faf5ff; color: var(--purple); }
+  .comp-card.cc-ink::before  { background: var(--ink); }
+  .comp-card.cc-muted::before { background: var(--muted); }
+  .comp-card.cc-deep::before { background: var(--gold-deep); }
+  .comp-icon { font-size: 24px; margin-bottom: 10px; }
+  .comp-name { font-family: var(--font-display); font-size: 14px; font-weight: 500; margin-bottom: 6px; letter-spacing: 0.01em; }
+  .comp-desc { font-size: 12px; color: var(--ink-soft); line-height: 1.75; }
+  .comp-evidence {
+    margin-top: 10px;
+    padding: 7px 10px;
+    border-radius: var(--r-xs);
+    font-size: 11px;
+    font-weight: 500;
+    background: rgba(156,123,67,0.08);
+    color: var(--gold-deep);
+    border: 1px solid rgba(156,123,67,0.18);
+  }
 
-  @media (max-width: 768px) { .comp-grid { grid-template-columns: 1fr; } }
-
+  /* ── ACHIEVE ── */
   .achieve-row { display: flex; flex-direction: column; gap: 10px; }
-  .achieve-item { display: flex; align-items: center; gap: 14px; padding: 12px 14px; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 10px; }
-  .achieve-icon { font-size: 22px; flex-shrink: 0; }
-  .achieve-label { font-size: 12px; color: var(--gray-400); font-weight: 500; }
-  .achieve-val { font-size: 17px; font-weight: 700; margin-top: 1px; }
-  .achieve-val.blue { color: var(--blue); } .achieve-val.gold { color: var(--gold); } .achieve-val.green { color: var(--green); } .achieve-val.purple { color: var(--purple); }
+  .achieve-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 14px;
+    background: var(--bg-soft);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--r-sm);
+  }
+  .achieve-icon { font-size: 20px; flex-shrink: 0; }
+  .achieve-label { font-size: 11px; color: var(--muted); font-weight: 400; letter-spacing: 0.03em; }
+  .achieve-val {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--ink);
+    margin-top: 1px;
+    letter-spacing: var(--track-display);
+  }
+  .achieve-val.gold { color: var(--gold-deep); }
 
+  /* ── BRAND PILL ── */
+  .brand-card {
+    padding: 12px 14px;
+    border-radius: var(--r-sm);
+    font-size: 13px;
+    border: 1px solid var(--line-soft);
+    background: var(--bg-soft);
+    margin-bottom: 8px;
+  }
+  .brand-name { font-weight: 600; color: var(--ink); font-size: 13px; }
+  .brand-sub { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  .brand-tier { color: var(--muted); font-size: 11px; margin-top: 1px; }
+
+  /* ── HIGHLIGHT BOX ── */
+  .highlight-box {
+    padding: 12px 16px;
+    background: var(--quote-bg);
+    border-left: 2px solid var(--gold);
+    border-radius: 0 var(--r-xs) var(--r-xs) 0;
+    font-size: 13px;
+    color: var(--ink-soft);
+    font-style: italic;
+    margin-top: 16px;
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.8;
+  }
+
+  /* ── COMPETENCY HIGHLIGHT ── */
+  .comp-hl-row { display: flex; flex-direction: column; gap: 8px; }
+  .comp-hl {
+    padding: 11px 14px;
+    border: 1px solid var(--line-soft);
+    border-radius: var(--r-sm);
+    background: var(--bg-soft);
+  }
+  .comp-hl-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 3px;
+  }
+  .comp-hl-val { font-size: 13px; font-weight: 600; color: var(--ink); }
+
+  /* ── TOOLS GRID ── */
+  .tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .tools-box {
+    padding: 13px 14px;
+    background: var(--bg-soft);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--r-sm);
+  }
+  .tools-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .tools-item { font-size: 13px; color: var(--ink-soft); margin-top: 5px; }
+
+  /* ── KEYWORD BADGES ── */
+  .kw-badge {
+    display: inline-block;
+    border: 1px solid var(--line);
+    border-radius: var(--r-xs);
+    padding: 5px 12px;
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin: 4px 4px 0 0;
+    letter-spacing: 0.02em;
+  }
+  .kw-badge.hl {
+    border-color: var(--gold-light);
+    color: var(--gold-deep);
+    background: rgba(156,123,67,0.06);
+  }
+
+  /* ── CAREER GROWTH TABLE ── */
+  .career-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .career-table th {
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+    color: var(--muted);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-size: 10px;
+    background: var(--bg-soft);
+  }
+  .career-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--line-soft);
+    color: var(--ink-soft);
+    vertical-align: top;
+  }
+  .career-table td:first-child { font-weight: 600; color: var(--ink); }
+  .career-table tr:last-child td { border-bottom: none; }
+
+  /* ── OPEN STATUS ── */
+  .status-open {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #4a7c5a;
+  }
+  .status-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #4a7c5a;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* ── RESPONSIVE ── */
   @media (max-width: 768px) {
-    .main { grid-template-columns: 1fr; padding: 16px; }
-    .header-inner { flex-direction: column; gap: 16px; }
+    .main { grid-template-columns: 1fr; padding: 20px 20px; }
+    .header-inner { flex-direction: column; gap: 20px; padding: 0 20px; }
     .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .comp-grid { grid-template-columns: 1fr; }
+    .nav-inner { padding: 0 20px; overflow-x: auto; }
+    .tools-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
+<!-- ── HEADER ── -->
 <div class="header">
   <div class="header-inner">
-    <div class="avatar"><img src="프로필사진.PNG" alt="Hong Arang"></div>
+    <div class="avatar">
+      <img src="프로필사진.PNG" alt="Hong Arang" onerror="this.parentElement.innerHTML='<div class=\'avatar-placeholder\'>Ha</div>'">
+    </div>
     <div style="flex:1">
-      <div class="name">Hong Arang · 홍아랑</div>
-      <span class="title-tag">Luxury Retail · BA / CDS · 명품 럭셔리 전문가</span>
+      <div class="name">Hong Arang<span class="name-dot">·</span>홍아랑</div>
+      <span class="title-tag">Luxury Retail &nbsp;·&nbsp; BA / CDS</span>
       <div class="contacts">
         <span>📍 Busan, South Korea</span>
         <span>✉️ ghddkfkd@naver.com</span>
-        <span style="color:#059669;font-weight:600">🔍 Open to Opportunities</span>
+        <span class="status-open"><span class="status-dot"></span>Open to Opportunities</span>
       </div>
       <div class="badge-row">
         <span class="badge hl">Loro Piana</span>
@@ -142,156 +597,155 @@
   </div>
 </div>
 
-<!-- NAV -->
+<!-- ── NAV ── -->
 <nav class="nav">
   <div class="nav-inner">
-    <button class="nav-btn active" onclick="show('resume')">📄 경력사항</button>
-    <button class="nav-btn" onclick="show('competency')">🎯 직무역량</button>
-    <button class="nav-btn" onclick="show('achievements')">📊 Sales 성과</button>
-    <button class="nav-btn" onclick="show('skills')">💡 역량</button>
+    <button class="nav-btn active" onclick="show('resume')">경력사항</button>
+    <button class="nav-btn" onclick="show('competency')">직무역량</button>
+    <button class="nav-btn" onclick="show('achievements')">Sales 성과</button>
+    <button class="nav-btn" onclick="show('skills')">역량</button>
   </div>
 </nav>
 
-<!-- ════ ACHIEVEMENTS ════ -->
+<!-- ══════════════════════════════════
+     ACHIEVEMENTS
+══════════════════════════════════ -->
 <div class="main" id="sec-achievements" style="display:none">
 
-  <!-- 핵심 지표 4개 -->
+  <!-- KPI 4 -->
   <div class="kpi-grid">
-    <div class="kpi-card c-blue">
-      <div class="kpi-label">연간 개인 매출 달성률</div>
-      <div class="kpi-value c-blue">101%+</div>
-      <div class="kpi-sub">2025 · 연간 목표 초과 달성</div>
-      <span class="kpi-change up">↑ 전년 대비 +6%</span>
-    </div>
     <div class="kpi-card c-gold">
+      <div class="kpi-label">연간 개인 매출 달성률</div>
+      <div class="kpi-value c-gold">101%+</div>
+      <div class="kpi-sub">2025 · 연간 목표 초과 달성</div>
+      <span class="kpi-change">↑ 전년 대비 +6%</span>
+    </div>
+    <div class="kpi-card">
       <div class="kpi-label">매장 성장 기여</div>
-      <div class="kpi-value c-gold">+19%</div>
+      <div class="kpi-value">+19%</div>
       <div class="kpi-sub">매장 전체 전년 대비 성장률</div>
-      <span class="kpi-change up">↑ 개인 점유 16%</span>
+      <span class="kpi-change">↑ 개인 점유 16%</span>
     </div>
-    <div class="kpi-card c-green">
+    <div class="kpi-card">
       <div class="kpi-label">평균 객단가 (ATV)</div>
-      <div class="kpi-value c-green">312만원</div>
+      <div class="kpi-value">312만원</div>
       <div class="kpi-sub">거래 1건당 평균 구매액</div>
-      <span class="kpi-change up">↑ 전년 대비 +17%</span>
+      <span class="kpi-change">↑ 전년 대비 +17%</span>
     </div>
-    <div class="kpi-card c-purple">
+    <div class="kpi-card c-ink">
       <div class="kpi-label">VIP 고객 포트폴리오</div>
-      <div class="kpi-value c-purple">212명</div>
+      <div class="kpi-value">212명</div>
       <div class="kpi-sub">CRM 담당 고객 수</div>
-      <span class="kpi-change up">↑ 크로스셀링 15%</span>
+      <span class="kpi-change">↑ 크로스셀링 15%</span>
     </div>
   </div>
 
   <!-- LEFT -->
   <div>
-    <!-- 월별 달성률 -->
     <div class="card">
-      <div class="card-title">📈 월별 개인 매출 달성률 (2025년)</div>
+      <div class="card-title"><span class="icon">📈</span> 월별 개인 매출 달성률 (2025년)</div>
       <div class="chart-wrap"><canvas id="cRate"></canvas></div>
     </div>
-
-    <!-- 연도별 성장 -->
     <div class="card">
-      <div class="card-title">📊 매장 전체 연간 성장 추이 (전년 대비 %)</div>
+      <div class="card-title"><span class="icon">📊</span> 매장 전체 연간 성장 추이 (전년 대비 %)</div>
       <div class="chart-wrap" style="height:180px"><canvas id="cGrowth"></canvas></div>
     </div>
-
-    <!-- 카테고리 MIX -->
     <div class="card">
-      <div class="card-title">🛍 개인 카테고리 MIX (2025년)</div>
+      <div class="card-title"><span class="icon">🛍</span> 개인 카테고리 MIX (2025년)</div>
       <div class="chart-wrap" style="height:190px"><canvas id="cCat"></canvas></div>
     </div>
   </div>
 
   <!-- RIGHT -->
   <div>
-    <!-- 성과 하이라이트 -->
     <div class="card">
-      <div class="card-title">🏆 주요 성과</div>
+      <div class="card-title"><span class="icon">🏆</span> 주요 성과</div>
       <div class="achieve-row">
         <div class="achieve-item">
           <span class="achieve-icon">💰</span>
           <div>
             <div class="achieve-label">2025 개인 연간 매출</div>
-            <div class="achieve-val blue">15억원 달성</div>
+            <div class="achieve-val gold">15억원 달성</div>
           </div>
         </div>
         <div class="achieve-item">
           <span class="achieve-icon">📈</span>
           <div>
             <div class="achieve-label">최고 단월 매출</div>
-            <div class="achieve-val gold">1.72억 (5월)</div>
+            <div class="achieve-val">1.72억 (5월)</div>
           </div>
         </div>
         <div class="achieve-item">
           <span class="achieve-icon">💳</span>
           <div>
             <div class="achieve-label">최고 ATV 달성</div>
-            <div class="achieve-val green">392만원 (10월)</div>
+            <div class="achieve-val">392만원 (10월)</div>
           </div>
         </div>
         <div class="achieve-item">
           <span class="achieve-icon">👑</span>
           <div>
-            <div class="achieve-label">VIP Tier 2-3 고객</div>
-            <div class="achieve-val purple">18명 관리</div>
+            <div class="achieve-label">VIP Tier 2–3 고객</div>
+            <div class="achieve-val gold">18명 관리</div>
           </div>
         </div>
         <div class="achieve-item">
           <span class="achieve-icon">🔄</span>
           <div>
             <div class="achieve-label">크로스셀링률</div>
-            <div class="achieve-val blue">15% (전년比 +0.8pp)</div>
+            <div class="achieve-val">15% (전년比 +0.8pp)</div>
           </div>
         </div>
         <div class="achieve-item">
           <span class="achieve-icon">🧥</span>
           <div>
             <div class="achieve-label">RTW 카테고리 특화</div>
-            <div class="achieve-val gold">개인 MIX 45.6%</div>
+            <div class="achieve-val">개인 MIX 45.6%</div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- 브랜드 경력 -->
     <div class="card">
-      <div class="card-title">🌐 럭셔리 브랜드 경력</div>
-      <div style="display:flex;flex-direction:column;gap:8px">
-        <div style="padding:10px 12px;border-radius:8px;background:#faf5ff;border:1px solid #e9d5ff;font-size:13px">
-          <div style="font-weight:700;color:#6d28d9">🪡 Loro Piana · LVMH</div>
-          <div style="color:var(--gray-600);font-size:12px;margin-top:2px">부매니저 / BA · CDS · 2022–2026</div>
-        </div>
-        <div style="padding:10px 12px;border-radius:8px;background:#fff7ed;border:1px solid #fed7aa;font-size:13px">
-          <div style="font-weight:700;color:#c2410c">🧵 Bottega Veneta · Kering</div>
-          <div style="color:var(--gray-600);font-size:12px;margin-top:2px">시니어 / 스타일링 어드바이저 · 2018–2022</div>
-        </div>
-        <div style="padding:10px 12px;border-radius:8px;background:var(--blue-light);border:1px solid var(--blue-mid);font-size:13px">
-          <div style="font-weight:700;color:var(--blue)">🧥 Burberry</div>
-          <div style="color:var(--gray-600);font-size:12px;margin-top:2px">세일즈 어소시에이트 · 2014–2017</div>
-        </div>
+      <div class="card-title"><span class="icon">🌐</span> 럭셔리 브랜드 경력</div>
+      <div class="brand-card">
+        <div class="brand-name">🪡 Loro Piana · LVMH</div>
+        <div class="brand-sub">부매니저 / BA · CDS · 2022–2026</div>
+        <div class="brand-tier">Ultra Luxury</div>
+      </div>
+      <div class="brand-card">
+        <div class="brand-name">🧵 Bottega Veneta · Kering</div>
+        <div class="brand-sub">시니어 / 스타일링 어드바이저 · 2018–2022</div>
+        <div class="brand-tier">Core Luxury</div>
+      </div>
+      <div class="brand-card" style="margin-bottom:0">
+        <div class="brand-name">🧥 Burberry</div>
+        <div class="brand-sub">세일즈 어소시에이트 · 2014–2017</div>
+        <div class="brand-tier">Entry Luxury</div>
       </div>
     </div>
   </div>
 
 </div><!-- /achievements -->
 
-<!-- ════ RESUME ════ -->
+
+<!-- ══════════════════════════════════
+     RESUME
+══════════════════════════════════ -->
 <div class="main" id="sec-resume">
   <div>
     <div class="card">
-      <div class="card-title">👤 자기소개</div>
-      <p style="color:var(--gray-600);font-size:13px;line-height:1.9">
-        Burberry부터 Loro Piana까지, <strong>11년간 브랜드와 함께 단계적으로 성장</strong>해온 럭셔리 리테일 전문가. Burberry에서 세일즈 기초를 다지고, Bottega Veneta에서 스타일링·VIP 역량을 심화하며, Loro Piana에서 매니지먼트와 CDS까지 직무를 확장했습니다. Loro Piana 입사 6개월 만에 사내 컨테스트 우승, 액팅 부매니저를 거쳐 <strong>정식 부매니저로 승진</strong>하며 실적과 리더십을 동시에 검증받았습니다.
+      <div class="card-title"><span class="icon">👤</span> 자기소개</div>
+      <p style="color:var(--ink-soft);font-size:13.5px;line-height:1.9">
+        Burberry부터 Loro Piana까지, <strong style="color:var(--ink)">11년간 브랜드와 함께 단계적으로 성장</strong>해온 럭셔리 리테일 전문가. Burberry에서 세일즈 기초를 다지고, Bottega Veneta에서 스타일링·VIP 역량을 심화하며, Loro Piana에서 매니지먼트와 CDS까지 직무를 확장했습니다. 입사 6개월 만에 사내 컨테스트 우승, 액팅 부매니저를 거쳐 <strong style="color:var(--ink)">정식 부매니저로 승진</strong>하며 실적과 리더십을 동시에 검증받았습니다.
       </p>
-      <div style="margin-top:14px;padding:12px 16px;background:#f0fdf4;border-radius:8px;font-size:13px;color:#166534;border-left:3px solid var(--green)">
+      <div class="highlight-box">
         "시련은 있어도 실패는 없다." — 포기하지 않고 끝까지 최선을 다하는 자세를 신조로 삼습니다.
       </div>
     </div>
 
     <div class="card">
-      <div class="card-title">💼 경력사항</div>
+      <div class="card-title"><span class="icon">💼</span> 경력사항</div>
 
       <div class="work-item">
         <div class="work-header">
@@ -306,10 +760,10 @@
             <li>개인 연간 매출 <strong>15억원 달성</strong> (2025, 목표 초과달성 · 전년 대비 +6%)</li>
             <li>매장 전체 전년 대비 <strong>+19% 성장 기여</strong>, 개인 점유율 16%</li>
             <li>평균 객단가(ATV) <strong>312만원</strong> 유지 (전년 대비 +17%)</li>
-            <li>VIP 고객 CDS 담당 — 212명 포트폴리오 관리, Tier 2-3 상위 VIP 18명</li>
+            <li>VIP 고객 CDS 담당 — 212명 포트폴리오 관리, Tier 2–3 상위 VIP 18명</li>
             <li>RTW 카테고리 특화 운영 (개인 MIX 45.6%), 크로스셀링률 15%</li>
           </ul>
-          <div style="margin-top:8px">
+          <div style="margin-top:10px">
             <span class="ach">💰 연간 15억 달성</span>
             <span class="ach">📈 매장 +19% 기여</span>
             <span class="ach">💳 ATV 312만원</span>
@@ -331,7 +785,7 @@
             <li>고객 맞춤 컨설팅으로 재구매율 및 객단가 향상</li>
             <li>RTW · 가방 · 액세서리 전반 카테고리 전문성 심화</li>
           </ul>
-          <div style="margin-top:8px">
+          <div style="margin-top:10px">
             <span class="ach">🎨 스타일링 어드바이저</span>
             <span class="ach">4년 3개월 장기 근속</span>
           </div>
@@ -349,20 +803,23 @@
         <div class="work-desc">
           <ul>
             <li>글로벌 럭셔리 브랜드 세일즈 커리어 시작</li>
-<li>시즌별 신상품 런칭 참여 및 고객 데이터 관리</li>
+            <li>시즌별 신상품 런칭 참여 및 고객 데이터 관리</li>
           </ul>
         </div>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-title">🎓 학력</div>
+      <div class="card-title"><span class="icon">🎓</span> 학력</div>
       <div class="work-item" style="padding:14px 0">
         <div class="work-header">
-          <div><div class="work-company">동의과학대학교</div><div class="work-role">관광일본어과 (전문학사)</div></div>
+          <div>
+            <div class="work-company">동의과학대학교</div>
+            <div class="work-role">관광일본어과 (전문학사)</div>
+          </div>
           <span class="work-period">2008 – 2010</span>
         </div>
-        <div class="work-desc" style="margin-top:8px">
+        <div style="margin-top:10px">
           <span class="ach">관광·서비스 전공</span>
           <span class="ach">일본어 전문 교육</span>
         </div>
@@ -370,65 +827,86 @@
     </div>
   </div>
 
+  <!-- RIGHT -->
   <div>
     <div class="card">
-      <div class="card-title">📋 프로필</div>
-      <div class="summ-item"><div class="summ-key">현 상태</div><div class="summ-val" style="color:#059669">Open to Opportunities</div></div>
+      <div class="card-title"><span class="icon">📋</span> 프로필</div>
+      <div class="summ-item">
+        <div class="summ-key">현 상태</div>
+        <div class="summ-val"><span class="status-open"><span class="status-dot"></span>Open to Opportunities</span></div>
+      </div>
       <div class="summ-item"><div class="summ-key">전문 분야</div><div class="summ-val">명품 럭셔리 리테일</div></div>
       <div class="summ-item"><div class="summ-key">경력</div><div class="summ-val">약 11년 (명품 브랜드 전문)</div></div>
       <div class="summ-item"><div class="summ-key">최종 직급</div><div class="summ-val">부매니저 / BA · CDS</div></div>
-      <div class="summ-item"><div class="summ-key">언어</div><div class="summ-val">한국어(네이티브) · 일본어(중급)</div></div>
-      <div class="summ-item"><div class="summ-key">자격</div><div class="summ-val">JPT 600점</div></div>
+      <div class="summ-item"><div class="summ-key">언어</div><div class="summ-val">한국어(네이티브) · 일본어 회화 중급</div></div>
     </div>
 
     <div class="card">
-      <div class="card-title">🗓 커리어 타임라인</div>
+      <div class="card-title"><span class="icon">🗓</span> 커리어 타임라인</div>
       <div class="tl">
-        <div class="tl-item"><div class="tl-date" style="color:#059669;font-weight:700">2026.04 –</div><div class="tl-content" style="color:#059669">Open to Opportunities</div></div>
-        <div class="tl-item"><div class="tl-date">2022.11 – 2026.03</div><div class="tl-content">Loro Piana 부매니저</div><div class="tl-sub">BA/CDS · 신세계 센텀</div></div>
-        <div class="tl-item"><div class="tl-date">2018.09 – 2022.10</div><div class="tl-content">Bottega Veneta 시니어</div><div class="tl-sub">스타일링 어드바이저</div></div>
-        <div class="tl-item"><div class="tl-date">2014.11 – 2017.12</div><div class="tl-content">Burberry Korea</div><div class="tl-sub">세일즈 어소시에이트</div></div>
-        <div class="tl-item"><div class="tl-date">2008 – 2010</div><div class="tl-content">동의과학대 졸업</div><div class="tl-sub">관광일본어과</div></div>
+        <div class="tl-item active">
+          <div class="tl-date" style="color:var(--gold-deep);font-weight:600">2026.04 –</div>
+          <div class="tl-content" style="color:var(--gold-deep)">Open to Opportunities</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">2022.11 – 2026.03</div>
+          <div class="tl-content">Loro Piana 부매니저</div>
+          <div class="tl-sub">BA/CDS · 신세계 센텀</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">2018.09 – 2022.10</div>
+          <div class="tl-content">Bottega Veneta 시니어</div>
+          <div class="tl-sub">스타일링 어드바이저</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">2014.11 – 2017.12</div>
+          <div class="tl-content">Burberry Korea</div>
+          <div class="tl-sub">세일즈 어소시에이트</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">2008 – 2010</div>
+          <div class="tl-content">동의과학대 졸업</div>
+          <div class="tl-sub">관광일본어과</div>
+        </div>
       </div>
     </div>
   </div>
 </div><!-- /resume -->
 
-<!-- ════ COMPETENCY ════ -->
+
+<!-- ══════════════════════════════════
+     COMPETENCY
+══════════════════════════════════ -->
 <div class="main" id="sec-competency" style="display:none">
 
-  <!-- 커리어 성장 스토리 (full width) -->
+  <!-- 커리어 성장 스토리 full width -->
   <div style="grid-column:1/-1">
     <div class="card">
-      <div class="card-title">🗓 커리어 성장 스토리</div>
+      <div class="card-title"><span class="icon">🗓</span> 커리어 성장 스토리</div>
       <div style="overflow-x:auto">
-        <table style="width:100%;border-collapse:collapse;font-size:12px">
+        <table class="career-table">
           <thead>
-            <tr style="background:var(--gray-50)">
-              <th style="padding:10px 14px;text-align:left;border-bottom:1px solid var(--gray-200);color:var(--gray-600);font-weight:700">브랜드</th>
-              <th style="padding:10px 14px;text-align:left;border-bottom:1px solid var(--gray-200);color:var(--gray-600);font-weight:700">포지셔닝</th>
-              <th style="padding:10px 14px;text-align:left;border-bottom:1px solid var(--gray-200);color:var(--gray-600);font-weight:700">역할</th>
-              <th style="padding:10px 14px;text-align:left;border-bottom:1px solid var(--gray-200);color:var(--gray-600);font-weight:700">핵심 성장</th>
+            <tr>
+              <th>브랜드</th>
+              <th>역할</th>
+              <th>핵심 성장</th>
             </tr>
           </thead>
           <tbody>
-            <tr style="border-bottom:1px solid var(--gray-100)">
-              <td style="padding:10px 14px;font-weight:700">🧥 Burberry</td>
-              <td style="padding:10px 14px;color:var(--gray-600)">엔트리 럭셔리</td>
-              <td style="padding:10px 14px;color:var(--gray-600)">세일즈 어소시에이트</td>
-              <td style="padding:10px 14px;color:var(--gray-600)">럭셔리 세일즈 기초·고객 응대 역량</td>
-            </tr>
-            <tr style="border-bottom:1px solid var(--gray-100)">
-              <td style="padding:10px 14px;font-weight:700">🎨 Bottega Veneta</td>
-              <td style="padding:10px 14px;color:var(--gray-600)">코어 럭셔리</td>
-              <td style="padding:10px 14px;color:var(--gray-600)">시니어·스타일링 어드바이저</td>
-              <td style="padding:10px 14px;color:var(--gray-600)">VIP 전담·토탈 스타일링·객단가 관리</td>
+            <tr>
+              <td>🧥 Burberry</td>
+              <td>세일즈 어소시에이트</td>
+              <td>럭셔리 세일즈 기초·고객 응대 역량</td>
             </tr>
             <tr>
-              <td style="padding:10px 14px;font-weight:700">🪡 Loro Piana</td>
-              <td style="padding:10px 14px;color:var(--gray-600)">울트라 럭셔리</td>
-              <td style="padding:10px 14px;color:var(--gray-600)">부매니저·BA·CDS</td>
-              <td style="padding:10px 14px;color:var(--gray-600)">매니지먼트·팀 리더십·CDS 전반</td>
+              <td>🎨 Bottega Veneta</td>
+              <td>시니어·스타일링 어드바이저</td>
+              <td>VIP 전담·토탈 스타일링·객단가 관리</td>
+            </tr>
+            <tr>
+              <td>🪡 Loro Piana</td>
+              <td>부매니저·BA·CDS</td>
+              <td>매니지먼트·팀 리더십·CDS 전반</td>
             </tr>
           </tbody>
         </table>
@@ -436,72 +914,70 @@
     </div>
   </div>
 
-  <!-- Left: company detail cards -->
+  <!-- LEFT -->
   <div>
-
-    <!-- Loro Piana -->
     <div class="card">
-      <div class="card-title">💼 Loro Piana (LVMH) — 신세계 센텀</div>
-      <div class="work-header" style="margin-bottom:16px">
+      <div class="card-title"><span class="icon">💼</span> Loro Piana (LVMH) — 신세계 센텀</div>
+      <div class="work-header" style="margin-bottom:18px">
         <div class="work-role">부매니저 / BA · CDS (Client Development Specialist)</div>
         <span class="work-period">2022.11 – 2026.03</span>
       </div>
 
       <div style="margin-bottom:16px">
-        <div style="font-size:12px;font-weight:700;color:var(--gray-600);margin-bottom:8px">📈 세일즈 성과</div>
+        <div style="font-size:11px;font-weight:500;letter-spacing:var(--track-label);text-transform:uppercase;color:var(--muted);margin-bottom:10px">📈 세일즈 성과</div>
         <ul class="work-desc"><ul>
           <li>개인 연간 매출 <strong>15억원 달성</strong> (2025, 목표 초과달성 · 전년 대비 +6%)</li>
           <li>매장 전체 전년 대비 <strong>+19% 성장 기여</strong>, 개인 점유율 16%</li>
           <li>평균 객단가(ATV) <strong>312만원</strong> 유지 (전년 대비 +17%)</li>
-          <li>VIP 고객 CDS 담당 — 212명 포트폴리오 관리, Tier 2-3 상위 VIP 18명</li>
+          <li>VIP 고객 CDS 담당 — 212명 포트폴리오 관리, Tier 2–3 상위 VIP 18명</li>
           <li>RTW 카테고리 특화 운영 (개인 MIX 45.6%), 크로스셀링률 15%</li>
         </ul></ul>
       </div>
 
+      <hr class="section-rule">
       <div style="margin-bottom:16px">
-        <div style="font-size:12px;font-weight:700;color:var(--gray-600);margin-bottom:8px">🏆 성장 & 수상</div>
+        <div style="font-size:11px;font-weight:500;letter-spacing:var(--track-label);text-transform:uppercase;color:var(--muted);margin-bottom:10px">🏆 성장 & 수상</div>
         <ul class="work-desc"><ul>
-          <li>입사 6개월 만에 전사 세일즈 컨테스트 우승 — 본사 포상으로 이탈리아 현지 팩토리 투어 참가, 브랜드 헤리티지·소재 철학 직접 체험하며 제품 전문성 심화</li>
-          <li>시니어 입사 후 부매니저 공백(약 1년) 기간 액팅 부매니저로 발탁 — 매장 운영·팀 리드·본사 커뮤니케이션 전반 수행 후 리더십과 실적을 인정받아 정식 부매니저로 승진</li>
-          <li>점장 부재 약 2개월간 매장 전체 운영 총괄 — 인원 스케줄 관리, 일일 KPI 설정 및 공유, 본사 리포팅까지 매니지먼트 전 영역 단독 수행</li>
+          <li>입사 6개월 만에 전사 세일즈 컨테스트 우승 — 이탈리아 현지 팩토리 투어 참가, 브랜드 헤리티지·소재 철학 직접 체험하며 제품 전문성 심화</li>
+          <li>시니어 입사 후 부매니저 공백(약 1년) 기간 액팅 부매니저로 발탁 — 매장 운영·팀 리드·본사 커뮤니케이션 전반 수행 후 정식 부매니저로 승진</li>
+          <li>점장 부재 약 2개월간 매장 전체 운영 총괄 — 인원 스케줄 관리, 일일 KPI 설정 및 공유, 본사 리포팅까지 단독 수행</li>
         </ul></ul>
       </div>
 
+      <hr class="section-rule">
       <div style="margin-bottom:16px">
-        <div style="font-size:12px;font-weight:700;color:var(--gray-600);margin-bottom:8px">👥 팀 관리 & 리더십</div>
+        <div style="font-size:11px;font-weight:500;letter-spacing:var(--track-label);text-transform:uppercase;color:var(--muted);margin-bottom:10px">👥 팀 관리 & 리더십</div>
         <ul class="work-desc"><ul>
-          <li>점장 포함 7명 규모 매장에서 팀원 5명 관리 담당 — 신규 입사자 중심 개인별 1:1 팔로우업 진행, 업무 적응 및 멘탈케어 병행</li>
+          <li>점장 포함 7명 규모 매장에서 팀원 5명 관리 담당 — 신규 입사자 중심 개인별 1:1 팔로우업, 업무 적응 및 멘탈케어 병행</li>
           <li>잘못된 부분은 즉시 개별 면담으로 전달 — 공개적 지적 없이 심리적 안전감을 유지하며 팀 분위기 관리</li>
-          <li>지속적인 동기부여와 밀착 케어 결과, 담당 팀원 대다수 현재까지 재직 중 — 안정적인 팀 운영에 기여</li>
+          <li>지속적인 동기부여와 밀착 케어 결과, 담당 팀원 대다수 현재까지 재직 중</li>
         </ul></ul>
       </div>
 
-      <div style="margin-bottom:16px">
-        <div style="font-size:12px;font-weight:700;color:var(--gray-600);margin-bottom:8px">📋 업무 개선 & 프로세스 표준화</div>
+      <hr class="section-rule">
+      <div>
+        <div style="font-size:11px;font-weight:500;letter-spacing:var(--track-label);text-transform:uppercase;color:var(--muted);margin-bottom:10px">📋 업무 개선 & 프로세스 표준화</div>
         <ul class="work-desc"><ul>
           <li>TR 업무 프로세스 개선 — 주문 관리 대장 양식 재설계 및 입고 정보 작성 기준 통일화로 업무 누락·혼선 최소화</li>
-          <li>매출 집계·TR 관리 등 다양한 업무 영역에 걸쳐 Excel 기반 업무 폼 직접 제작 및 기존 폼 업데이트 — 데이터 입력 기준 통일화로 팀 내 정보 공유 효율 향상</li>
+          <li>매출 집계·TR 관리 등 다양한 업무 영역에 걸쳐 Excel 기반 업무 폼 직접 제작 및 기존 폼 업데이트</li>
         </ul></ul>
       </div>
 
-      <div>
+      <div style="margin-top:14px">
         <span class="ach">💰 연간 15억 달성</span>
         <span class="ach">📈 매장 +19% 기여</span>
         <span class="ach">💳 ATV 312만원</span>
         <span class="ach">🏆 사내 컨테스트 우승</span>
         <span class="ach">🇮🇹 이탈리아 팩토리 투어</span>
-        <span class="ach">📈 액팅 부매니저 → 정식 승진</span>
+        <span class="ach">📈 액팅 → 정식 승진</span>
         <span class="ach">🏪 매장 운영 총괄</span>
         <span class="ach">👥 팀원 5명 관리</span>
-        <span class="ach">🤝 1:1 멘탈케어</span>
         <span class="ach">📋 TR 프로세스 표준화</span>
-        <span class="ach">📊 Excel 업무 폼 제작</span>
       </div>
     </div>
 
-    <!-- Bottega Veneta -->
     <div class="card">
-      <div class="card-title">🎨 Bottega Veneta (Kering) — 신세계 센텀</div>
+      <div class="card-title"><span class="icon">🎨</span> Bottega Veneta (Kering) — 신세계 센텀</div>
       <div class="work-header" style="margin-bottom:14px">
         <div class="work-role">시니어 / 스타일링 어드바이저 (Styling Advisor)</div>
         <span class="work-period">2018.09 – 2022.10</span>
@@ -518,9 +994,8 @@
       </div>
     </div>
 
-    <!-- Burberry -->
     <div class="card">
-      <div class="card-title">🧥 Burberry Korea — 롯데 울산점</div>
+      <div class="card-title"><span class="icon">🧥</span> Burberry Korea — 롯데 울산점</div>
       <div class="work-header" style="margin-bottom:14px">
         <div class="work-role">세일즈 어소시에이트 (Sales Associate)</div>
         <span class="work-period">2014.11 – 2017.12</span>
@@ -533,121 +1008,125 @@
         <span class="ach">🧥 럭셔리 세일즈 출발점</span>
       </div>
     </div>
-
   </div>
 
-  <!-- Right sidebar -->
+  <!-- RIGHT sidebar -->
   <div>
     <div class="card">
-      <div class="card-title">🌟 직무역량 하이라이트</div>
-      <div style="display:flex;flex-direction:column;gap:9px">
-        <div style="padding:10px 12px;background:var(--blue-light);border-radius:8px;border:1px solid var(--blue-mid)">
-          <div style="font-size:11px;font-weight:700;color:var(--blue);margin-bottom:3px">SALES</div>
-          <div style="font-size:13px;font-weight:700">연간 15억 · 달성률 101%+</div>
+      <div class="card-title"><span class="icon">🌟</span> 직무역량 하이라이트</div>
+      <div class="comp-hl-row">
+        <div class="comp-hl">
+          <div class="comp-hl-label">Sales</div>
+          <div class="comp-hl-val">연간 15억 · 달성률 101%+</div>
         </div>
-        <div style="padding:10px 12px;background:#fffbeb;border-radius:8px;border:1px solid #fde68a">
-          <div style="font-size:11px;font-weight:700;color:var(--gold);margin-bottom:3px">LEADERSHIP</div>
-          <div style="font-size:13px;font-weight:700">액팅 → 정식 부매니저 승진</div>
+        <div class="comp-hl">
+          <div class="comp-hl-label">Leadership</div>
+          <div class="comp-hl-val">액팅 → 정식 부매니저 승진</div>
         </div>
-        <div style="padding:10px 12px;background:#f0fdf4;border-radius:8px;border:1px solid #bbf7d0">
-          <div style="font-size:11px;font-weight:700;color:var(--green);margin-bottom:3px">CRM</div>
-          <div style="font-size:13px;font-weight:700">VIP 212명 · 크로스셀링 15%</div>
+        <div class="comp-hl">
+          <div class="comp-hl-label">CRM</div>
+          <div class="comp-hl-val">VIP 212명 · 크로스셀링 15%</div>
         </div>
-        <div style="padding:10px 12px;background:#faf5ff;border-radius:8px;border:1px solid #e9d5ff">
-          <div style="font-size:11px;font-weight:700;color:var(--purple);margin-bottom:3px">AWARD</div>
-          <div style="font-size:13px;font-weight:700">전사 컨테스트 우승 🇮🇹</div>
+        <div class="comp-hl">
+          <div class="comp-hl-label">Award</div>
+          <div class="comp-hl-val">전사 컨테스트 우승 🇮🇹</div>
         </div>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-title">📊 브랜드 경력 요약</div>
-      <div style="display:flex;flex-direction:column;gap:8px">
-        <div style="padding:10px 12px;border-radius:8px;background:#faf5ff;border:1px solid #e9d5ff;font-size:13px">
-          <div style="font-weight:700;color:#6d28d9">🪡 Loro Piana · LVMH</div>
-          <div style="color:var(--gray-600);font-size:12px;margin-top:2px">부매니저 / BA · CDS · 2022–2026</div>
-          <div style="color:var(--gray-400);font-size:11px;margin-top:1px">울트라 럭셔리 · 3년 4개월</div>
-        </div>
-        <div style="padding:10px 12px;border-radius:8px;background:#fff7ed;border:1px solid #fed7aa;font-size:13px">
-          <div style="font-weight:700;color:#c2410c">🧵 Bottega Veneta · Kering</div>
-          <div style="color:var(--gray-600);font-size:12px;margin-top:2px">시니어 / 스타일링 어드바이저 · 2018–2022</div>
-          <div style="color:var(--gray-400);font-size:11px;margin-top:1px">코어 럭셔리 · 4년 1개월</div>
-        </div>
-        <div style="padding:10px 12px;border-radius:8px;background:var(--blue-light);border:1px solid var(--blue-mid);font-size:13px">
-          <div style="font-weight:700;color:var(--blue)">🧥 Burberry</div>
-          <div style="color:var(--gray-600);font-size:12px;margin-top:2px">세일즈 어소시에이트 · 2014–2017</div>
-          <div style="color:var(--gray-400);font-size:11px;margin-top:1px">엔트리 럭셔리 · 3년 1개월</div>
-        </div>
+      <div class="card-title"><span class="icon">📊</span> 브랜드 경력 요약</div>
+      <div class="brand-card">
+        <div class="brand-name">🪡 Loro Piana · LVMH</div>
+        <div class="brand-sub">부매니저 / BA · CDS · 2022–2026</div>
+        <div class="brand-tier">울트라 럭셔리 · 3년 4개월</div>
+      </div>
+      <div class="brand-card">
+        <div class="brand-name">🧵 Bottega Veneta · Kering</div>
+        <div class="brand-sub">시니어 / 스타일링 어드바이저 · 2018–2022</div>
+        <div class="brand-tier">코어 럭셔리 · 4년 1개월</div>
+      </div>
+      <div class="brand-card" style="margin-bottom:0">
+        <div class="brand-name">🧥 Burberry</div>
+        <div class="brand-sub">세일즈 어소시에이트 · 2014–2017</div>
+        <div class="brand-tier">엔트리 럭셔리 · 3년 1개월</div>
       </div>
     </div>
   </div>
 
 </div><!-- /competency -->
 
-<!-- ════ SKILLS ════ -->
+
+<!-- ══════════════════════════════════
+     SKILLS
+══════════════════════════════════ -->
 <div class="main" id="sec-skills" style="display:none">
   <div>
     <div class="card">
-      <div class="card-title">💪 핵심 역량</div>
+      <div class="card-title"><span class="icon">💪</span> 핵심 역량</div>
       <div id="skill-bars"></div>
     </div>
     <div class="card">
-      <div class="card-title">🕸 역량 레이더 차트</div>
+      <div class="card-title"><span class="icon">🕸</span> 역량 레이더 차트</div>
       <div class="chart-wrap tall"><canvas id="cRadar"></canvas></div>
     </div>
   </div>
 
   <div>
     <div class="card">
-      <div class="card-title">🎯 직무별 적합도</div>
+      <div class="card-title"><span class="icon">🎯</span> 직무별 적합도</div>
       <div class="chart-wrap tall"><canvas id="cFit"></canvas></div>
     </div>
 
     <div class="card">
-      <div class="card-title">🛠 보유 도구 & 언어</div>
-      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px">
-        <div style="padding:12px;background:var(--gray-50);border-radius:8px;border:1px solid var(--gray-200)">
-          <div style="font-size:11px;font-weight:700;color:var(--gray-400);margin-bottom:7px">LANGUAGE</div>
-          <div style="font-size:13px">🇰🇷 한국어 — Native</div>
-          <div style="font-size:13px;margin-top:5px">🇯🇵 일본어 — 회화 중급</div>
+      <div class="card-title"><span class="icon">🛠</span> 보유 도구 & 언어</div>
+      <div class="tools-grid">
+        <div class="tools-box">
+          <div class="tools-label">Language</div>
+          <div class="tools-item">🇰🇷 한국어 — Native</div>
+          <div class="tools-item">🇯🇵 일본어 — 회화 중급</div>
         </div>
-        <div style="padding:12px;background:var(--gray-50);border-radius:8px;border:1px solid var(--gray-200)">
-          <div style="font-size:11px;font-weight:700;color:var(--gray-400);margin-bottom:7px">TOOLS</div>
-          <div style="font-size:13px">💾 SAP ERP</div>
-          <div style="font-size:13px;margin-top:5px">📊 Excel / PowerPoint</div>
-          <div style="font-size:13px;margin-top:5px">👤 CRM / CDS</div>
+        <div class="tools-box">
+          <div class="tools-label">Tools</div>
+          <div class="tools-item">💾 SAP ERP</div>
+          <div class="tools-item">📊 Excel / PowerPoint</div>
+          <div class="tools-item">👤 CRM / CDS</div>
+          <div class="tools-item">🤖 Claude Code</div>
         </div>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-title">💬 강점 키워드</div>
-      <div style="display:flex;flex-wrap:wrap;gap:7px">
-        <span class="badge hl" style="font-size:13px;padding:6px 12px">Luxury RTW</span>
-        <span class="badge hl" style="font-size:13px;padding:6px 12px">VIP CRM · CDS</span>
-        <span class="badge hl" style="font-size:13px;padding:6px 12px">Styling Advisor</span>
-        <span class="badge" style="font-size:13px;padding:6px 12px">Cross-Selling</span>
-        <span class="badge" style="font-size:13px;padding:6px 12px">Client Development</span>
-        <span class="badge" style="font-size:13px;padding:6px 12px">ATV Management</span>
-        <span class="badge" style="font-size:13px;padding:6px 12px">일본어 회화 중급</span>
-        <span class="badge" style="font-size:13px;padding:6px 12px">Team Collaboration</span>
+      <div class="card-title"><span class="icon">💬</span> 강점 키워드</div>
+      <div>
+        <span class="kw-badge hl">Luxury RTW</span>
+        <span class="kw-badge hl">VIP CRM · CDS</span>
+        <span class="kw-badge hl">Styling Advisor</span>
+        <span class="kw-badge">Cross-Selling</span>
+        <span class="kw-badge">Client Development</span>
+        <span class="kw-badge">ATV Management</span>
+        <span class="kw-badge">일본어 회화 중급</span>
+        <span class="kw-badge">Team Collaboration</span>
       </div>
     </div>
   </div>
 </div><!-- /skills -->
 
-<script>
-Chart.defaults.font.family = "'Apple SD Gothic Neo','Pretendard','Noto Sans KR',sans-serif";
-Chart.defaults.font.size = 11;
-Chart.defaults.color = '#94a3b8';
 
+<script>
+Chart.defaults.font.family = "'Jost','Noto Sans KR',sans-serif";
+Chart.defaults.font.size = 11;
+Chart.defaults.color = '#948975';
+
+const gold = '#9C7B43';
+const goldLight = 'rgba(156,123,67,0.15)';
+const ink = '#211D18';
+const inkFade = 'rgba(33,29,24,0.12)';
+const line = '#DFD6C5';
 const months = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
 
-// 개인 TARGET 대비 달성률 (%)
-const achieveRate = [100.1, 102.7, 100.1, 101.0, 110.0, 100.2, 100.5, 101.3, 100.4, 100.3, 100.0, 101.4];
-
-// 매장 전체 전년 대비 성장률 (%)
-const storeGrowth = [3, 10, 7, 17, 24, 40, 46, 12, 24, 22, 22, 23];
+const achieveRate = [100.1,102.7,100.1,101.0,110.0,100.2,100.5,101.3,100.4,100.3,100.0,101.4];
+const storeGrowth = [3,10,7,17,24,40,46,12,24,22,22,23];
 
 new Chart(document.getElementById('cRate'), {
   type: 'bar',
@@ -656,23 +1135,18 @@ new Chart(document.getElementById('cRate'), {
     datasets: [{
       label: '달성률(%)',
       data: achieveRate,
-      backgroundColor: achieveRate.map(v => v >= 100 ? 'rgba(37,99,235,0.75)' : 'rgba(220,38,38,0.65)'),
-      borderRadius: 6
+      backgroundColor: achieveRate.map(v => v >= 100 ? 'rgba(156,123,67,0.75)' : 'rgba(180,60,60,0.55)'),
+      borderRadius: 5
     }]
   },
   options: {
     responsive: true, maintainAspectRatio: false,
     plugins: {
       legend: { display: false },
-      tooltip: { callbacks: { label: ctx => ctx.parsed.y.toFixed(1) + '%' } },
-      annotation: {}
+      tooltip: { callbacks: { label: ctx => ctx.parsed.y.toFixed(1) + '%' } }
     },
     scales: {
-      y: {
-        min: 97, max: 113,
-        grid: { color: '#f1f5f9' },
-        ticks: { callback: v => v + '%' }
-      },
+      y: { min: 97, max: 113, grid: { color: line }, ticks: { callback: v => v + '%' } },
       x: { grid: { display: false } }
     }
   }
@@ -685,15 +1159,15 @@ new Chart(document.getElementById('cGrowth'), {
     datasets: [{
       label: '전년 대비 성장률(%)',
       data: storeGrowth,
-      backgroundColor: storeGrowth.map(v => `rgba(5,150,105,${0.4 + v/100})`),
-      borderRadius: 5
+      backgroundColor: storeGrowth.map(v => `rgba(156,123,67,${0.3 + v/80})`),
+      borderRadius: 4
     }]
   },
   options: {
     responsive: true, maintainAspectRatio: false,
     plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => '+' + ctx.parsed.y + '%' } } },
     scales: {
-      y: { min: 0, grid: { color: '#f1f5f9' }, ticks: { callback: v => '+' + v + '%' } },
+      y: { min: 0, grid: { color: line }, ticks: { callback: v => '+' + v + '%' } },
       x: { grid: { display: false } }
     }
   }
@@ -703,12 +1177,16 @@ new Chart(document.getElementById('cCat'), {
   type: 'doughnut',
   data: {
     labels: ['RTW 45.6%','Bags 27.0%','Shoes 22.8%','Accessories 2.7%','기타 1.9%'],
-    datasets: [{ data: [45.6,27.0,22.8,2.7,1.9], backgroundColor: ['#2563eb','#7c3aed','#d97706','#059669','#94a3b8'], borderWidth: 0 }]
+    datasets: [{
+      data: [45.6,27.0,22.8,2.7,1.9],
+      backgroundColor: ['#9C7B43','#C9A86A','#574E44','#948975','#DFD6C5'],
+      borderWidth: 0
+    }]
   },
   options: {
     responsive: true, maintainAspectRatio: false,
     plugins: { legend: { position: 'right', labels: { boxWidth: 10, padding: 10, font: { size: 11 } } } },
-    cutout: '60%'
+    cutout: '62%'
   }
 });
 
@@ -724,7 +1202,10 @@ function initSkills() {
   ];
   const container = document.getElementById('skill-bars');
   skills.forEach(s => {
-    container.innerHTML += `<div class="skill-item"><div class="skill-hd"><span>${s.name}</span><span class="skill-pct">${s.pct}%</span></div><div class="skill-bar"><div class="skill-fill" style="width:${s.pct}%"></div></div></div>`;
+    container.innerHTML += `<div class="skill-item">
+      <div class="skill-hd"><span>${s.name}</span><span class="skill-pct">${s.pct}%</span></div>
+      <div class="skill-bar"><div class="skill-fill" style="width:${s.pct}%"></div></div>
+    </div>`;
   });
 
   new Chart(document.getElementById('cRadar'), {
@@ -733,14 +1214,17 @@ function initSkills() {
       labels: ['VIP·CRM','RTW전문성','스타일링','크로스셀링','운영·SAP','팀협업'],
       datasets: [{
         data: [92,95,90,85,80,83],
-        backgroundColor: 'rgba(37,99,235,0.15)', borderColor: '#2563eb', borderWidth: 2,
-        pointBackgroundColor: '#2563eb', pointRadius: 4
+        backgroundColor: goldLight,
+        borderColor: gold,
+        borderWidth: 1.5,
+        pointBackgroundColor: gold,
+        pointRadius: 3
       }]
     },
     options: {
       responsive: true, maintainAspectRatio: false,
       plugins: { legend: { display: false } },
-      scales: { r: { min: 50, max: 100, ticks: { stepSize: 10, font: { size: 10 } }, grid: { color: '#e2e8f0' }, pointLabels: { font: { size: 11 } } } }
+      scales: { r: { min: 50, max: 100, ticks: { stepSize: 10, font: { size: 10 }, backdropColor: 'transparent' }, grid: { color: line }, pointLabels: { font: { size: 11 } } } }
     }
   });
 
@@ -750,19 +1234,27 @@ function initSkills() {
       labels: ['부매니저·점장','스타일리스트·SA','CRM·CDS 전담','MD·바이어','VM·운영기획'],
       datasets: [{
         data: [94,92,88,72,70],
-        backgroundColor: ['rgba(37,99,235,0.85)','rgba(37,99,235,0.75)','rgba(37,99,235,0.65)','rgba(37,99,235,0.50)','rgba(37,99,235,0.45)'],
-        borderRadius: 6
+        backgroundColor: [
+          'rgba(156,123,67,0.85)',
+          'rgba(156,123,67,0.70)',
+          'rgba(156,123,67,0.55)',
+          'rgba(156,123,67,0.40)',
+          'rgba(156,123,67,0.30)'
+        ],
+        borderRadius: 5
       }]
     },
     options: {
       indexAxis: 'y',
       responsive: true, maintainAspectRatio: false,
       plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ctx.parsed.x + '%' } } },
-      scales: { x: { min: 60, max: 100, grid: { color: '#f1f5f9' }, ticks: { callback: v => v + '%' } }, y: { grid: { display: false } } }
+      scales: {
+        x: { min: 60, max: 100, grid: { color: line }, ticks: { callback: v => v + '%' } },
+        y: { grid: { display: false } }
+      }
     }
   });
 }
-
 
 function show(name) {
   ['achievements','resume','competency','skills'].forEach(s => {
